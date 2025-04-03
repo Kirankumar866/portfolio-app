@@ -7,8 +7,8 @@ import { GithubIcon, LinkedInIcon } from './social-icons';
 import Image from "next/image";
 
 const socialLinks = {
-    github: "https://github.com/kartikeya-datta",
-    linkedin: "https://www.linkedin.com/in/kartikeya-datta-749b0214a/"
+    github: "https://github.com/kirankumar866",
+    linkedin: "https://www.linkedin.com/in/kiran-kumar-parasa-09210b325/"
 };
 
 
@@ -17,7 +17,9 @@ const navItems = [
     { name: "Qualifications", href: "#Qualifications" },
     { name: "Experience", href: "#experience" },
     { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" }
+    { name: "Contact", href: "#contact" },
+    { name: "Resume", href: "#resume" }
+
 ];
 
 export default function Navbar() {
@@ -39,19 +41,27 @@ export default function Navbar() {
                             </div>
                         </div>
                         <span className="text-lg font-semibold text-content/90 group-hover:text-primary transition-colors">
-                            M Kartikeya Datta
+                            Kiran Kumar Parasa
                         </span>
                     </motion.div>
 
                     {/* Desktop Navbar */}
                     <div className="hidden md:flex items-center gap-6">
-                        <div className="flex items-center gap-6 bg-background/60 rounded-full px-4 py-2 border border-white/15 shadow-lg shadow-white/2">
+                        <div className="flex items-center gap-6 bg-gradient-to-r from-white/10 to-white/30 backdrop-blur-md rounded-full px-4 py-2 border border-white/15 shadow-lg shadow-white/10">
                             {navItems.map((items, i) => (
                                 <Menuitems key={items.name} index={i} href={items.href}>
                                     {items.name}
                                 </Menuitems>
                             ))}
                         </div>
+
+                        {/* <div className="flex items-center gap-6 bg-background/60 rounded-full px-4 py-2 border border-white/15 shadow-lg shadow-white/2">
+                            {navItems.map((items, i) => (
+                                <Menuitems key={items.name} index={i} href={items.href}>
+                                    {items.name}
+                                </Menuitems>
+                            ))}
+                        </div> */}
                         <div className="h-6 w-px bg-white/20 mx-2"></div>
                                 <div className="flex gap-4">
                                     <a
@@ -91,7 +101,8 @@ export default function Navbar() {
                     <motion.div
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="md:hidden flex flex-col gap-4 mt-4 pb-4 space-y-4"
+                        className="md:hidden flex flex-col gap-4 mt-4 pb-4 space-y-4 bg-gradient-to-b from-white/10 to-white/30 backdrop-blur-md rounded-lg shadow-lg shadow-white/10 p-4"
+                        //className="md:hidden flex flex-col gap-4 mt-4 pb-4 space-y-4"
                     >
                         {navItems.map((items) => (
                             <a

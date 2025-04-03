@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import Main from "@/components/main";
 import Navbar from "@/components/navbar";
 import Qualifications from "@/components/Qualifications";
+import ResumeSection from "@/components/ResumeSection";
 import Shuffle from "@/components/shuffle";
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
       <Hero/>
       <Qualifications/>
       <Main/>
+      <ResumeSection/>
       <Shuffle/>
       <EmailSection/>
       <Footer/>

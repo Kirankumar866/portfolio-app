@@ -2,8 +2,8 @@
 import { GithubIcon, LinkedInIcon } from './social-icons';
 
 const socialLinks = {
-    github: "https://github.com/kartikeya-datta",
-    linkedin: "https://www.linkedin.com/in/kartikeya-datta-749b0214a/"
+    github: "https://github.com/kirankumar866",
+    linkedin: "https://www.linkedin.com/in/kiran-kumar-parasa-09210b325/"
 };
 
 export default function SocialLinks() {

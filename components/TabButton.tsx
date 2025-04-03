@@ -16,7 +16,7 @@ const TabButton: React.FC<TabButtonProps> = ({ active, selectTab, children }) =>
   return (
     <button
       onClick={selectTab}
-      className="relative px-4 py-2 text-lg font-semibold focus:outline-none"
+      className="relative px-4 py-2 text-lg font-semibold focus:outline-none "
     >
       <span className={`hover:text-white transition-colors duration-300 ${active ? "text-white" : "text-[#ADB7BE]"}`}>
         {children}

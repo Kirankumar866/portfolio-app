@@ -1,30 +1,109 @@
 "use client";
 import React, { useTransition, useState } from "react";
+import { motion } from "framer-motion";
 import TabButton from "./TabButton";
+
+const skillCategories = [
+  {
+    category: "Frontend",
+    skills: [
+      { name: "AngularJS", src: "/skills/angularjs.png" },
+      { name: "CSS", src: "/skills/css.png" },
+      { name: "HTML", src: "/skills/html.png" },
+      { name: "JavaScript", src: "/skills/javascript.png" },
+      { name: "ReactJS", src: "/skills/reactjs.png" },
+      { name: "Redux", src: "/skills/redux.png" },
+      { name: "TailwindCSS", src: "/skills/tailwindcss.png" },
+    ],
+  },
+  {
+    category: "Backend",
+    skills: [
+      { name: "ExpressJS", src: "/skills/expressjs.png" },
+      { name: "Java", src: "/skills/java.png" },
+      { name: "JWT", src: "/skills/jwt.png" },
+      { name: "Node.js", src: "/skills/nodejs.png" },
+      { name: "Spring", src: "/skills/spring.png" },
+      { name: "Spring Boot", src: "/skills/springboot.png" },
+    ],
+  },
+  {
+    category: "Databases",
+    skills: [
+      { name: "MongoDB", src: "/skills/mongodb.png" },
+      { name: "MySQL", src: "/skills/mysql.png" },
+      { name: "PostgreSQL", src: "/skills/postgresql.png" },
+      { name: "Microsoft SQL Server", src: "/skills/microsoftsql.svg" },
+    ],
+  },
+  {
+    category: "DevOps & Cloud",
+    skills: [
+      { name: "AWS", src: "/skills/aws.png" },
+      { name: "Docker", src: "/skills/docker.png" },
+      { name: "Kubernetes", src: "/skills/kubernetes.png" },
+    ],
+  },
+  {
+    category: "Tools",
+    skills: [
+      { name: "Figma", src: "/skills/figma.png" },
+      { name: "Git", src: "/skills/git.png" },
+      { name: "GitHub", src: "/skills/github.png" },
+      { name: "IntelliJ", src: "/skills/intellij.png" },
+      { name: "Postman", src: "/skills/postman.png" },
+      { name: "Swagger", src: "/skills/swagger.png" },
+      { name: "VS Code", src: "/skills/vscode.png" },
+    ],
+  },
+];
+
+
 
 const TAB_DATA = [
   {
     title: "Skills",
     id: "skills",
     content: (
-      <ul className="list-disc pl-4 text-center">
-        <li>Node.js</li>
-        <li>Express</li>
-        <li>PostgreSQL</li>
-        <li>Sequelize</li>
-        <li>JavaScript</li>
-        <li>React</li>
-      </ul>
+      <div className="w-full overflow-hidden space-y-6 mt-4">
+      {skillCategories.map((category, index) => (
+        <div key={index} className="text-center">
+          <h3 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary via-secondary to-tertiary bg-clip-text text-transparent mb-6">
+            {category.category}
+          </h3>
+          <div className="relative w-full overflow-hidden">
+            <motion.div
+              className="flex space-x-8 min-w-full"
+              animate={{ x: ["0%", "-100%"] }}
+              transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
+            >
+              {category.skills.map((skill, skillIndex) => (
+                <img
+                  key={skillIndex}
+                  src={skill.src}
+                  alt={skill.name}
+                  className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 object-contain"
+                />
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      ))}
+    </div>
     ),
   },
   {
     title: "Education",
     id: "education",
     content: (
-      <ul className="list-disc pl-4 text-center">
-        <li>Fullstack Academy of Code</li>
-        <li>University of California, Santa Cruz</li>
-      </ul>
+      <div className="text-center space-y-2 group transition duration-300">
+      <p className="text-2xl font-semibold text-white transition-all duration-300 group-hover:text-transparent group-hover:bg-gradient-to-r from-primary via-secondary to-tertiary bg-clip-text">
+        Masters in Information Science
+      </p>
+      <p className="text-xl text-gray-300 transition-all duration-300 group-hover:text-transparent group-hover:bg-gradient-to-r from-primary via-secondary to-tertiary bg-clip-text">
+        Northwest Missouri State University, Maryville MO
+      </p>
+    </div>
     ),
   },
   {
@@ -57,6 +136,7 @@ const Qualifications = () => {
           <TabButton
             selectTab={() => handleTabChange("education")}
             active={tab === "education"}
+            
           >
             Education
           </TabButton>

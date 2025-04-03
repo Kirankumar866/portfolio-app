@@ -5,8 +5,8 @@ import { motion } from 'framer-motion';
 import { GithubIcon, LinkedInIcon } from './social-icons';
 
 const socialLinks = {
-    github: "https://github.com/kartikeya-datta",
-    linkedin: "https://www.linkedin.com/in/kartikeya-datta-749b0214a/"
+    github: "https://github.com/kirankumar866",
+    linkedin: "https://www.linkedin.com/in/kiran-kumar-parasa-09210b325/"
 };
 
 
@@ -57,7 +57,7 @@ const EmailSection = () => {
           transition: { duration: 0.1 },
         }}
         whileTap={{ scale: 0.95 }}
-        href="mailto:kartikeyadatta3@gmail.com?cc=dattakartikeya@gmail.com,s562604@nwmissouri.edu&subject=Hello Kartikeya!&body=Hi Kartikeya,"
+        href="mailto:kirankumar201018@gmail.com?cc=parasakirankumar1825@gmail.com,s561500@nwmissouri.edu&subject=Message from Portfolio!&body=Hi Kiran,"
         target="_blank"
         rel="nofollow noopener noreferrer"
         className="relative overflow-hidden px-8 py-4 rounded-full bg-surface border border-white/10 

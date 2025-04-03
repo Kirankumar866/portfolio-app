@@ -18,18 +18,18 @@ const projects = [
             { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" }
         ],
         image: "/projects/portfolio.png",
-        href: "https://www.google.com"
+        href: "https://github.com/Kirankumar866/nxtWatchApp"
     },
     {
-        title: "Mobile App",
+        title: "Video Stream App",
         description: "A mobile application developed using React Native.",
         tag: ["All", "Mobile"],
         tech: [
             { name: "React Native", icon: FaReact, color: "#61DAFB" },
             { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" }
         ],
-        image: "/projects/portfolio.png",
-        href: "https://www.google.com"
+        image: "/projects/videostream.png",
+        href: "https://nxtwatchkiranp.ccbp.tech/"
     },
     {
         title: "E-commerce Website",
@@ -40,9 +40,43 @@ const projects = [
             { name: "Next.js", icon: SiNextdotjs, color: "#000000" },
             { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" }
         ],
-        image: "/projects/portfolio.png",
-        href: "https://www.google.com"
+        image: "/projects/ecommerce.png",
+        href: "https://nxttrenzstore.ccbp.tech/"
+    },
+    {
+        title: "Expense Tracker",
+        description: "Expense Tracker is a web application that helps you to track your expenses.",
+        tag: ["All", "Web"],
+        tech: [
+            { name: "React", icon: FaReact, color: "#61DAFB" },
+            { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" }
+        ],
+        image: "/projects/expensetracker.png",
+        href: "https://accountcal.ccbp.tech/"
+    },
+    {
+        title: "Food Munch",
+        description: "Food Munch is a web application that helps you to order food online.",
+        tag: ["All", "Web"],
+        tech: [
+            { name: "React", icon: FaReact, color: "#61DAFB" },
+            { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" }
+        ],
+        image: "/projects/foodmunch.png",
+        href: "https://kirafoodmunch.ccbp.tech/"
+    },
+    {
+        title: "TODO App",
+        description: "TODO App is a web application that helps you to manage your tasks.",
+        tag: ["All", "Web"],
+        tech: [
+            { name: "React", icon: FaReact, color: "#61DAFB" },
+            { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" }
+        ],
+        image: "/projects/todo.png",
+        href: "https://deletetodo123.ccbp.tech/"
     }
+
 ];
 
 export default function Main() {
@@ -118,7 +152,10 @@ export default function Main() {
                             <motion.div className="p-6 bg-surface" transition={{ duration: 0.3 }}>
                                 <div className="flex justify-between items-start mb-4">
                                     <h3 className="text-2xl font-bold text-content">{project.title}</h3>
-                                    <ArrowUpRightIcon className="h-6 w-6 text-content/50 group-hover:text-primary transition-colors duration-300" />
+                                    <a href={project.href} target="_blank" rel="noopener noreferrer">
+                                        <ArrowUpRightIcon className="h-6 w-6 text-content/50 group-hover:text-primary transition-colors duration-300" />
+                                    </a>
+                                                                        
                                 </div>
                                 <p className="text-content/80 mb-4">{project.description}</p>
                                 <div className="flex flex-wrap gap-2">

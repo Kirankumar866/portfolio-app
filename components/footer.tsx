@@ -2,8 +2,8 @@ import { EnvelopeIcon } from "@heroicons/react/16/solid";
 import { GithubIcon, LinkedInIcon } from "./social-icons";
 
 const socialLinks = {
-    github: "https://github.com/kartikeya-datta",
-    linkedin: "https://www.linkedin.com/in/kartikeya-datta-749b0214a/"
+    github: "https://github.com/kirankumar866",
+    linkedin: "https://www.linkedin.com/in/kiran-kumar-parasa-09210b325/"
 };
 
 export default function Footer(){
@@ -57,7 +57,7 @@ export default function Footer(){
                             <LinkedInIcon className="text-gray-400 h-6 w-6 hover:text-white transition-colors"/>
                             </a></li> 
                         <li>
-                            <a href="mailto:kartikeyadatta3@gmail.com?cc=dattakartikeya@gmail.com,s562604@nwmissouri.edu&subject=Hello Kartikeya!&body=Hi Kartikeya,"
+                            <a href="mailto:kirankumar201018@gmail.com?cc=parasakirankumar1825@gmail.com,s561500@nwmissouri.edu&subject=Trying to reach you from Portfolio!&body=Hi Kiran,"
                             target="_blank"
                             rel="nofollow noopener noreferrer">
                                 <EnvelopeIcon className="text-gray-400 h-6 w-6 hover:text-white transition-colors"/>
@@ -69,7 +69,7 @@ export default function Footer(){
 
                 <div className="border-t border-gray-800 mt-12 pt-8 text-center">
                     <p>
-                        &copy; {new Date().getFullYear()} M Kartikeya Datta. All rights reserved.
+                        &copy; {new Date().getFullYear()} Kiran Parasa. All rights reserved.
                     </p>
                 </div>
             </div>
