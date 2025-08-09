@@ -125,7 +125,7 @@ const TAB_DATA = [
               </div>
 
               {/* Skills Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                 {category.skills.map((skill, skillIndex) => (
                   <motion.div
                     key={skillIndex}
@@ -138,7 +138,7 @@ const TAB_DATA = [
                     whileHover={{ scale: 1.05, y: -5 }}
                     className="relative group/skill cursor-pointer"
                   >
-                    <div className="bg-gradient-to-br from-surface/60 to-surface/40 rounded-xl p-4 border border-surface/30 group-hover/skill:border-primary/30 transition-all duration-300 backdrop-blur-sm">
+                    <div className="bg-gradient-to-br from-surface/60 to-surface/40 rounded-lg sm:rounded-xl p-3 sm:p-4 border border-surface/30 group-hover/skill:border-primary/30 transition-all duration-300 backdrop-blur-sm">
                       <div className="flex items-center space-x-3">
                         <div className="w-12 h-12 bg-gradient-to-br from-surface/80 to-surface/60 rounded-lg flex items-center justify-center p-2">
                           <img
@@ -148,7 +148,7 @@ const TAB_DATA = [
                           />
                         </div>
                         <div className="flex-1">
-                          <h4 className="font-semibold text-content group-hover/skill:text-primary transition-colors">
+                          <h4 className="font-semibold text-content group-hover/skill:text-primary transition-colors text-sm sm:text-base">
                             {skill.name}
                           </h4>
                           <div className="flex items-center space-x-1 mt-1">
@@ -163,7 +163,7 @@ const TAB_DATA = [
                                 fill={i < getSkillLevelStars(skill.level) ? 'currentColor' : 'none'}
                               />
                             ))}
-                            <span className={`text-xs ml-2 ${getSkillLevelColor(skill.level)}`}>
+                            <span className={`text-xs ml-1 sm:ml-2 ${getSkillLevelColor(skill.level)}`}>
                               {skill.level}
                             </span>
                           </div>
@@ -182,12 +182,12 @@ const TAB_DATA = [
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
-          className="bg-gradient-to-br from-surface/40 via-surface/30 to-surface/20 rounded-2xl p-6 border border-surface/20 text-center"
+          className="bg-gradient-to-br from-surface/40 via-surface/30 to-surface/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-surface/20 text-center"
         >
-          <h4 className="text-lg font-bold text-content/90 mb-3">
+          <h4 className="text-base sm:text-lg font-bold text-content/90 mb-2 sm:mb-3">
             Always Learning 📚
           </h4>
-          <p className="text-content/70 text-sm max-w-2xl mx-auto">
+          <p className="text-content/70 text-xs sm:text-sm max-w-2xl mx-auto px-2">
             Technology evolves rapidly, and so do I. I'm constantly exploring new tools, frameworks, and best practices to stay current and deliver the best solutions.
           </p>
         </motion.div>
@@ -274,24 +274,24 @@ const TAB_DATA = [
             <h4 className="text-xl font-bold text-center mb-4 bg-gradient-to-r from-secondary to-tertiary bg-clip-text text-transparent">
               Academic Highlights
             </h4>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
               <div className="text-center space-y-2">
                 <div className="w-12 h-12 mx-auto bg-gradient-to-br from-primary/20 to-primary/40 rounded-xl flex items-center justify-center">
                   <span className="text-2xl font-bold text-primary">3.8</span>
                 </div>
-                <p className="text-sm text-content/70">GPA</p>
+                <p className="text-xs sm:text-sm text-content/70">GPA</p>
               </div>
               <div className="text-center space-y-2">
                 <div className="w-12 h-12 mx-auto bg-gradient-to-br from-secondary/20 to-secondary/40 rounded-xl flex items-center justify-center">
                   <span className="text-2xl font-bold text-secondary">15+</span>
                 </div>
-                <p className="text-sm text-content/70">Courses</p>
+                <p className="text-xs sm:text-sm text-content/70">Courses</p>
               </div>
               <div className="text-center space-y-2">
                 <div className="w-12 h-12 mx-auto bg-gradient-to-br from-tertiary/20 to-tertiary/40 rounded-xl flex items-center justify-center">
                   <span className="text-2xl font-bold text-tertiary">5+</span>
                 </div>
-                <p className="text-sm text-content/70">Projects</p>
+                <p className="text-xs sm:text-sm text-content/70">Projects</p>
               </div>
             </div>
           </div>
@@ -411,17 +411,17 @@ const Qualifications = () => {
   return (
     <section id="Qualifications" className="text-white relative">
       <div className="absolute inset-0 bg-gradient-subtle opacity-30"></div>
-      <div className="relative flex flex-col items-center py-12 px-4 sm:py-20 xl:px-16">
+      <div className="relative flex flex-col items-center py-8 sm:py-12 lg:py-20 px-4 sm:px-6 lg:px-8 xl:px-16">
         <motion.div
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary via-secondary to-tertiary bg-clip-text text-transparent mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary via-secondary to-tertiary bg-clip-text text-transparent mb-3 sm:mb-4">
             Qualifications
           </h2>
-          <p className="text-lg text-content/70 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-content/70 max-w-2xl mx-auto px-4">
             My educational background, technical skills, and professional certifications
           </p>
         </motion.div>
@@ -430,7 +430,7 @@ const Qualifications = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex flex-row justify-center space-x-2 md:space-x-6 mb-8"
+          className="flex flex-row justify-center space-x-1 sm:space-x-2 md:space-x-6 mb-6 sm:mb-8 px-4"
         >
           <TabButton
             selectTab={() => handleTabChange("education")}
