@@ -94,8 +94,8 @@ export default function Main() {
     const visibleProjects = showAll ? filteredProjects : filteredProjects.slice(0, 3);
 
     return (
-        <section id="projects" className="py-32 relative">
-            <div className="max-w-7xl mx-auto px-6">
+        <section id="projects" className="py-8 sm:py-12 lg:py-16 relative">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
                 {/* Section Heading */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
