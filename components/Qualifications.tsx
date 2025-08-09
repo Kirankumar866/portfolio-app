@@ -2,7 +2,7 @@
 import React, { useTransition, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import TabButton from "./TabButton";
-import { AcademicCapIcon, TrophyIcon, CheckBadgeIcon, CalendarIcon, MapPinIcon, BookOpenIcon, StarIcon } from "@heroicons/react/24/outline";
+import { AcademicCapIcon, TrophyIcon, CheckBadgeIcon, CalendarIcon, MapPinIcon, BookOpenIcon, StarIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 
 const skillCategories = [
   {
@@ -86,25 +86,33 @@ const getSkillLevelColor = (level: string) => {
   return colors[level as keyof typeof colors] || "text-blue-400";
 };
 
-const TAB_DATA = [
-  {
-    title: "Skills",
-    id: "skills",
-    content: (
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="mt-6 space-y-8"
-      >
-        {/* Skills Overview */}
-        <div className="text-center mb-8">
-          <p className="text-content/70 max-w-2xl mx-auto">
-            Here are the technologies and tools I work with. I'm always learning and growing! 🚀
-          </p>
-        </div>
+const SkillsSection = () => {
+  const [expandedCategories, setExpandedCategories] = useState<number[]>([]);
 
-        {/* Skills Grid */}
+  const toggleCategory = (index: number) => {
+    setExpandedCategories(prev => 
+      prev.includes(index) 
+        ? prev.filter(i => i !== index)
+        : [...prev, index]
+    );
+  };
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="mt-6 space-y-6 sm:space-y-8"
+    >
+      {/* Skills Overview */}
+      <div className="text-center mb-6 sm:mb-8">
+        <p className="text-content/70 max-w-2xl mx-auto text-sm sm:text-base">
+          Here are the technologies and tools I work with. I'm always learning and growing! 🚀
+        </p>
+      </div>
+
+      {/* Desktop View - Show all skills */}
+      <div className="hidden lg:block">
         <div className="grid gap-6">
           {skillCategories.map((category, categoryIndex) => (
             <motion.div
@@ -176,23 +184,138 @@ const TAB_DATA = [
             </motion.div>
           ))}
         </div>
+      </div>
 
-        {/* Skills Summary */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-          className="bg-gradient-to-br from-surface/40 via-surface/30 to-surface/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-surface/20 text-center"
-        >
-          <h4 className="text-base sm:text-lg font-bold text-content/90 mb-2 sm:mb-3">
-            Always Learning 📚
-          </h4>
-          <p className="text-content/70 text-xs sm:text-sm max-w-2xl mx-auto px-2">
-            Technology evolves rapidly, and so do I. I'm constantly exploring new tools, frameworks, and best practices to stay current and deliver the best solutions.
-          </p>
-        </motion.div>
+      {/* Mobile/Tablet View - Collapsible Categories */}
+      <div className="lg:hidden space-y-4">
+        {skillCategories.map((category, categoryIndex) => (
+          <motion.div
+            key={categoryIndex}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
+            className="relative"
+          >
+            {/* Category Header - Clickable */}
+            <motion.button
+              onClick={() => toggleCategory(categoryIndex)}
+              className="w-full flex items-center justify-between p-4 bg-gradient-to-br from-surface/60 to-surface/40 rounded-xl border border-surface/30 hover:border-primary/30 transition-all duration-300 backdrop-blur-sm"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <div className="flex items-center space-x-3">
+                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br ${category.color} flex items-center justify-center text-xl sm:text-2xl shadow-lg`}>
+                  {category.icon}
+                </div>
+                <div className="text-left">
+                  <h3 className="text-lg sm:text-xl font-bold text-content">
+                    {category.category}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-content/60">
+                    {category.skills.length} skills
+                  </p>
+                </div>
+              </div>
+              
+              <motion.div
+                animate={{ 
+                  rotate: expandedCategories.includes(categoryIndex) ? 180 : 0 
+                }}
+                transition={{ duration: 0.3 }}
+                className="text-content/60"
+              >
+                <ChevronDownIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+              </motion.div>
+            </motion.button>
+
+            {/* Collapsible Skills Content */}
+            <AnimatePresence>
+              {expandedCategories.includes(categoryIndex) && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="overflow-hidden"
+                >
+                  <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                    {category.skills.map((skill, skillIndex) => (
+                      <motion.div
+                        key={skillIndex}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ 
+                          duration: 0.3, 
+                          delay: skillIndex * 0.05 
+                        }}
+                        whileHover={{ scale: 1.03, y: -2 }}
+                        className="relative group/skill cursor-pointer"
+                      >
+                        <div className="bg-gradient-to-br from-surface/60 to-surface/40 rounded-lg p-3 border border-surface/30 group-hover/skill:border-primary/30 transition-all duration-300 backdrop-blur-sm">
+                          <div className="flex items-center space-x-3">
+                            <div className="w-10 h-10 bg-gradient-to-br from-surface/80 to-surface/60 rounded-lg flex items-center justify-center p-2">
+                              <img
+                                src={skill.src}
+                                alt={skill.name}
+                                className="w-full h-full object-contain"
+                              />
+                            </div>
+                            <div className="flex-1">
+                              <h4 className="font-semibold text-content group-hover/skill:text-primary transition-colors text-sm">
+                                {skill.name}
+                              </h4>
+                              <div className="flex items-center space-x-1 mt-1">
+                                {[...Array(5)].map((_, i) => (
+                                  <StarIcon
+                                    key={i}
+                                    className={`w-2.5 h-2.5 ${
+                                      i < getSkillLevelStars(skill.level)
+                                        ? getSkillLevelColor(skill.level)
+                                        : 'text-content/20'
+                                    }`}
+                                    fill={i < getSkillLevelStars(skill.level) ? 'currentColor' : 'none'}
+                                  />
+                                ))}
+                                <span className={`text-xs ml-1 ${getSkillLevelColor(skill.level)}`}>
+                                  {skill.level}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Skills Summary */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.8 }}
+        className="bg-gradient-to-br from-surface/40 via-surface/30 to-surface/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-surface/20 text-center mt-8"
+      >
+        <h4 className="text-base sm:text-lg font-bold text-content/90 mb-2 sm:mb-3">
+          Always Learning 📚
+        </h4>
+        <p className="text-content/70 text-xs sm:text-sm max-w-2xl mx-auto px-2">
+          Technology evolves rapidly, and so do I. I'm constantly exploring new tools, frameworks, and best practices to stay current and deliver the best solutions.
+        </p>
       </motion.div>
-    ),
+    </motion.div>
+  );
+};
+
+const TAB_DATA = [
+  {
+    title: "Skills",
+    id: "skills",
+    content: <SkillsSection />
   },
   {
     title: "Education",
@@ -287,7 +410,7 @@ const TAB_DATA = [
                 </div>
                 <p className="text-xs sm:text-sm text-content/70">Courses</p>
               </div>
-              <div className="text-center space-y-2">
+              <div className="text-center space-y-2 col-span-2 sm:col-span-1">
                 <div className="w-12 h-12 mx-auto bg-gradient-to-br from-tertiary/20 to-tertiary/40 rounded-xl flex items-center justify-center">
                   <span className="text-2xl font-bold text-tertiary">5+</span>
                 </div>
