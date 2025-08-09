@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import Menuitems from './menu-items';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/16/solid';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { GithubIcon, LinkedInIcon } from './social-icons';
 import Image from "next/image";
 
@@ -22,6 +22,15 @@ const navItems = [
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) {
+        return null;
+    }
 
     return (
         <motion.nav
