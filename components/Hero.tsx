@@ -26,7 +26,7 @@ export default function Hero() {
         id = "about"
         className='min-h-screen relative overflow-hidden bg-black'>
             <ParticleCanvas/>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 lg:pt-32">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 lg:pt-24 pb-8 sm:pb-12 lg:pb-16">
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-8 sm:gap-12 lg:gap-16">
                     {/* Text Content */}
                     <motion.div
