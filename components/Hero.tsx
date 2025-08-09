@@ -26,8 +26,8 @@ export default function Hero() {
         id = "about"
         className='min-h-screen relative overflow-hidden bg-black'>
             <ParticleCanvas/>
-            <div className="max-w-7xl mx-auto px-6 pt-32">
-                <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 lg:pt-32">
+                <div className="flex flex-col lg:flex-row items-center justify-between gap-8 sm:gap-12 lg:gap-16">
                     {/* Text Content */}
                     <motion.div
                     initial={{opacity:0, x:-50}}
@@ -39,8 +39,8 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
-            className="text-6xl md:text-8xl font-bold bg-gradient-to-r
-            from-primary via-secondary to-tertiary bg-clip-text text-transparent mb-6"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold bg-gradient-to-r
+            from-primary via-secondary to-tertiary bg-clip-text text-transparent mb-4 sm:mb-6 text-center lg:text-left"
         >
             <motion.span
                 key={titles[index]} // Ensures smooth animation on change
@@ -57,7 +57,7 @@ export default function Hero() {
                         initial={{opacity:0, y:20}}
                         animate={{opacity:1, y:0}}
                         transition={{delay:1.1, duration:0.8, ease: "easeOut"}}
-                        className="text-xl text-content/80 mb-8"
+                        className="text-base sm:text-lg lg:text-xl text-content/80 mb-6 sm:mb-8 text-center lg:text-left leading-relaxed px-2 lg:px-0"
                         >
                             I am a software engineer with 3 years of experience in full-stack development, specializing in Java Spring Boot, microservices, and cloud-based solutions. I excel in building scalable backend systems and responsive front-end interfaces using ReactJS and AngularJS. Proficient in PostgreSQL, MySQL, and MongoDB, I also have hands-on experience with Docker, Kubernetes, and CI/CD pipelines using Jenkins. Passionate about developing secure, high-performance applications that enhance business efficiency.
                         </motion.p>
@@ -75,13 +75,13 @@ export default function Hero() {
                                 }
                             }}
                             whileTap={{ scale: 0.95 }}
-                            className="relative overflow-hidden px-8 py-4 rounded-full bg-surface border border-white/10 
-                                        hover:border-primary/30 transition-all group"
+                            className="relative overflow-hidden px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-surface border border-white/10 
+                                        hover:border-primary/30 transition-all group mx-auto lg:mx-0 inline-block"
                             href="mailto:kirankumar201018@gmail.com?cc=parasakirankumar1825@gmail.com,s561500@nwmissouri.edu&subject=Hello Kiran, this is an offer to hire you!&body=Hi Kiran,"
                             target="_blank"
                             rel="nofollow noopener noreferrer"
                             >
-                            <span className="text-content/90 group-hover:text-primary transition-colors font-bold font-mono">
+                            <span className="text-content/90 group-hover:text-primary transition-colors font-bold font-mono text-sm sm:text-base">
                                 Hire me!
                             </span>
                             
