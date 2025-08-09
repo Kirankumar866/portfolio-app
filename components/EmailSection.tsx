@@ -17,6 +17,8 @@ const EmailSection = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -26,10 +28,46 @@ const EmailSection = () => {
     }));
   };
 
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
+    setErrorMessage('');
+    setSuccessMessage('');
+
+    // Client-side validation
+    if (formData.name.trim().length < 2) {
+      setErrorMessage('Name must be at least 2 characters long');
+      setSubmitStatus('error');
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!validateEmail(formData.email)) {
+      setErrorMessage('Please enter a valid email address');
+      setSubmitStatus('error');
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (formData.message.trim().length < 10) {
+      setErrorMessage('Message must be at least 10 characters long');
+      setSubmitStatus('error');
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (formData.message.trim().length > 1000) {
+      setErrorMessage('Message must be less than 1000 characters');
+      setSubmitStatus('error');
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       const response = await fetch('/api/contact', {
@@ -37,22 +75,44 @@ const EmailSection = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          message: formData.message.trim()
+        }),
       });
+
+      const data = await response.json();
 
       if (response.ok) {
         setSubmitStatus('success');
+        setSuccessMessage(data.message || 'Message sent successfully!');
         setFormData({ name: '', email: '', message: '' });
+
+        // If there's a mailto fallback, offer it to the user
+        if (data.mailtoLink) {
+          setTimeout(() => {
+            if (window.confirm('Would you like to also send this message directly via your email client?')) {
+              window.location.href = data.mailtoLink;
+            }
+          }, 2000);
+        }
       } else {
         setSubmitStatus('error');
+        setErrorMessage(data.error || 'Failed to send message. Please try again.');
       }
     } catch (error) {
       console.error('Error sending message:', error);
       setSubmitStatus('error');
+      setErrorMessage('Network error. Please check your connection and try again.');
     } finally {
       setIsSubmitting(false);
-      // Reset status after 3 seconds
-      setTimeout(() => setSubmitStatus('idle'), 3000);
+      // Reset status after 5 seconds
+      setTimeout(() => {
+        setSubmitStatus('idle');
+        setErrorMessage('');
+        setSuccessMessage('');
+      }, 5000);
     }
   };
 
@@ -104,6 +164,7 @@ const EmailSection = () => {
                     required
                     className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-surface/50 border border-surface/50 rounded-lg sm:rounded-xl focus:border-primary/50 focus:outline-none transition-all duration-300 text-content placeholder-content/50 text-sm sm:text-base"
                     placeholder="Enter your full name"
+                    maxLength={100}
                   />
                 </div>
 
@@ -122,6 +183,7 @@ const EmailSection = () => {
                     required
                     className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-surface/50 border border-surface/50 rounded-lg sm:rounded-xl focus:border-secondary/50 focus:outline-none transition-all duration-300 text-content placeholder-content/50 text-sm sm:text-base"
                     placeholder="Enter your email address"
+                    maxLength={254}
                   />
                 </div>
 
@@ -138,8 +200,9 @@ const EmailSection = () => {
                     onChange={handleInputChange}
                     required
                     rows={4}
+                    maxLength={1000}
                     className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-surface/50 border border-surface/50 rounded-lg sm:rounded-xl focus:border-tertiary/50 focus:outline-none transition-all duration-300 text-content placeholder-content/50 resize-none text-sm sm:text-base"
-                    placeholder="Tell me about your project, questions, or just say hello..."
+                    placeholder="Tell me about your project, questions, or just say hello... (min 10 characters)"
                   />
                 </div>
 
@@ -174,7 +237,7 @@ const EmailSection = () => {
                     animate={{ opacity: 1, y: 0 }}
                     className="p-3 sm:p-4 bg-green-500/20 border border-green-500/30 rounded-lg sm:rounded-xl text-green-400 text-center text-sm sm:text-base"
                   >
-                    ✅ Message sent successfully! I'll get back to you soon.
+                    ✅ {successMessage || "Message sent successfully! I'll get back to you soon."}
                   </motion.div>
                 )}
                 
@@ -184,7 +247,7 @@ const EmailSection = () => {
                     animate={{ opacity: 1, y: 0 }}
                     className="p-3 sm:p-4 bg-red-500/20 border border-red-500/30 rounded-lg sm:rounded-xl text-red-400 text-center text-sm sm:text-base"
                   >
-                    ❌ Failed to send message. Please try again or email me directly.
+                    ❌ {errorMessage || "Failed to send message. Please try again or email me directly."}
                   </motion.div>
                 )}
               </form>
