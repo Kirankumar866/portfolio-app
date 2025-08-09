@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -23,9 +18,66 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
+/* Mobile-first responsive utilities */
+@layer utilities {
+  .text-responsive {
+    @apply text-sm sm:text-base md:text-lg lg:text-xl;
+  }
+  
+  .heading-responsive {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl;
+  }
+  
+  .padding-responsive {
+    @apply p-3 sm:p-4 md:p-6 lg:p-8;
+  }
+  
+  .margin-responsive {
+    @apply m-3 sm:m-4 md:m-6 lg:m-8;
+  }
+  
+  .gap-responsive {
+    @apply gap-3 sm:gap-4 md:gap-6 lg:gap-8;
+  }
+  
+  .rounded-responsive {
+    @apply rounded-lg sm:rounded-xl md:rounded-2xl;
+  }
+  
+  /* Touch-friendly interactive elements */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Safe area for mobile devices with notches */
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  /* Prevent text selection on mobile for better UX */
+  .no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Smooth scrolling for mobile */
+  .smooth-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+}
 
+/* Custom animations */
 @keyframes gradient-pulse {
   0% { opacity: 0.3; }
   50% { opacity: 0.6; }
@@ -34,4 +86,81 @@ body {
 
 .animate-gradient-pulse {
   animation: gradient-pulse 3s ease-in-out infinite;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  /* Reduce motion for better mobile performance */
+  .motion-reduce {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  /* Better form inputs on mobile */
+  input, textarea, select {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  /* Better touch targets */
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Tablet-specific styles */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .tablet-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop-specific styles */
+@media (min-width: 1024px) {
+  .desktop-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* High DPI screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .high-dpi {
+    /* Styles for high DPI displays */
+  }
+}
+
+/* Focus styles for accessibility */
+@layer components {
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background;
+  }
+  
+  .focus-visible-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+}
+
+/* Dark mode specific overrides */
+@media (prefers-color-scheme: dark) {
+  /* Additional dark mode styles if needed */
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  * {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
 }
