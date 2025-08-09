@@ -2,62 +2,89 @@
 import React, { useTransition, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import TabButton from "./TabButton";
-import { AcademicCapIcon, TrophyIcon, CheckBadgeIcon, CalendarIcon, MapPinIcon, BookOpenIcon } from "@heroicons/react/24/outline";
+import { AcademicCapIcon, TrophyIcon, CheckBadgeIcon, CalendarIcon, MapPinIcon, BookOpenIcon, StarIcon } from "@heroicons/react/24/outline";
 
 const skillCategories = [
   {
     category: "Frontend",
+    color: "from-blue-500 to-cyan-500",
+    icon: "🎨",
     skills: [
-      { name: "AngularJS", src: "/skills/angularjs.png" },
-      { name: "CSS", src: "/skills/css.png" },
-      { name: "HTML", src: "/skills/html.png" },
-      { name: "JavaScript", src: "/skills/javascript.png" },
-      { name: "ReactJS", src: "/skills/reactjs.png" },
-      { name: "Redux", src: "/skills/redux.png" },
-      { name: "TailwindCSS", src: "/skills/tailwindcss.png" },
+      { name: "React", src: "/skills/reactjs.png", level: "Advanced" },
+      { name: "JavaScript", src: "/skills/javascript.png", level: "Advanced" },
+      { name: "HTML/CSS", src: "/skills/html.png", level: "Expert" },
+      { name: "Angular", src: "/skills/angularjs.png", level: "Intermediate" },
+      { name: "Redux", src: "/skills/redux.png", level: "Advanced" },
+      { name: "Tailwind", src: "/skills/tailwindcss.png", level: "Advanced" },
     ],
   },
   {
     category: "Backend",
+    color: "from-green-500 to-emerald-500",
+    icon: "⚙️",
     skills: [
-      { name: "ExpressJS", src: "/skills/expressjs.png" },
-      { name: "Java", src: "/skills/java.png" },
-      { name: "JWT", src: "/skills/jwt.png" },
-      { name: "Node.js", src: "/skills/nodejs.png" },
-      { name: "Spring", src: "/skills/spring.png" },
-      { name: "Spring Boot", src: "/skills/springboot.png" },
+      { name: "Node.js", src: "/skills/nodejs.png", level: "Advanced" },
+      { name: "Java", src: "/skills/java.png", level: "Advanced" },
+      { name: "Spring Boot", src: "/skills/springboot.png", level: "Advanced" },
+      { name: "Express.js", src: "/skills/expressjs.png", level: "Intermediate" },
+      { name: "Spring", src: "/skills/spring.png", level: "Advanced" },
+      { name: "JWT", src: "/skills/jwt.png", level: "Intermediate" },
     ],
   },
   {
-    category: "Databases",
+    category: "Database",
+    color: "from-purple-500 to-violet-500",
+    icon: "🗄️",
     skills: [
-      { name: "MongoDB", src: "/skills/mongodb.png" },
-      { name: "MySQL", src: "/skills/mysql.png" },
-      { name: "PostgreSQL", src: "/skills/postgresql.png" },
-      { name: "Microsoft SQL Server", src: "/skills/microsoftsql.svg" },
+      { name: "MongoDB", src: "/skills/mongodb.png", level: "Advanced" },
+      { name: "MySQL", src: "/skills/mysql.png", level: "Advanced" },
+      { name: "PostgreSQL", src: "/skills/postgresql.png", level: "Intermediate" },
+      { name: "SQL Server", src: "/skills/microsoftsql.svg", level: "Intermediate" },
     ],
   },
   {
-    category: "DevOps & Cloud",
+    category: "Cloud & DevOps",
+    color: "from-orange-500 to-red-500",
+    icon: "☁️",
     skills: [
-      { name: "AWS", src: "/skills/aws.png" },
-      { name: "Docker", src: "/skills/docker.png" },
-      { name: "Kubernetes", src: "/skills/kubernetes.png" },
+      { name: "AWS", src: "/skills/aws.png", level: "Intermediate" },
+      { name: "Docker", src: "/skills/docker.png", level: "Intermediate" },
+      { name: "Kubernetes", src: "/skills/kubernetes.png", level: "Beginner" },
     ],
   },
   {
     category: "Tools",
+    color: "from-pink-500 to-rose-500",
+    icon: "🛠️",
     skills: [
-      { name: "Figma", src: "/skills/figma.png" },
-      { name: "Git", src: "/skills/git.png" },
-      { name: "GitHub", src: "/skills/github.png" },
-      { name: "IntelliJ", src: "/skills/intellij.png" },
-      { name: "Postman", src: "/skills/postman.png" },
-      { name: "Swagger", src: "/skills/swagger.png" },
-      { name: "VS Code", src: "/skills/vscode.png" },
+      { name: "Git", src: "/skills/git.png", level: "Advanced" },
+      { name: "VS Code", src: "/skills/vscode.png", level: "Expert" },
+      { name: "Postman", src: "/skills/postman.png", level: "Advanced" },
+      { name: "Figma", src: "/skills/figma.png", level: "Intermediate" },
+      { name: "IntelliJ", src: "/skills/intellij.png", level: "Advanced" },
     ],
   },
 ];
+
+const getSkillLevelStars = (level: string) => {
+  const levels = {
+    "Beginner": 2,
+    "Intermediate": 3,
+    "Advanced": 4,
+    "Expert": 5
+  };
+  return levels[level as keyof typeof levels] || 3;
+};
+
+const getSkillLevelColor = (level: string) => {
+  const colors = {
+    "Beginner": "text-yellow-400",
+    "Intermediate": "text-blue-400", 
+    "Advanced": "text-green-400",
+    "Expert": "text-purple-400"
+  };
+  return colors[level as keyof typeof colors] || "text-blue-400";
+};
 
 const TAB_DATA = [
   {
@@ -67,59 +94,103 @@ const TAB_DATA = [
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, staggerChildren: 0.1 }}
-        className="w-full overflow-hidden space-y-8 mt-6"
+        transition={{ duration: 0.6 }}
+        className="mt-6 space-y-8"
       >
-        {skillCategories.map((category, index) => (
-          <motion.div 
-            key={index} 
-            className="relative"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-          >
-            <div className="text-center mb-6">
-              <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary via-secondary to-tertiary bg-clip-text text-transparent mb-2">
-                {category.category}
-              </h3>
-              <div className="w-16 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
-            </div>
-            
-            <div className="relative bg-gradient-to-br from-surface/50 via-surface/30 to-surface/10 rounded-2xl p-6 backdrop-blur-sm border border-surface/20 shadow-2xl overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-subtle opacity-20"></div>
-              <div className="relative w-full overflow-hidden">
-                <motion.div
-                  className="flex space-x-8 min-w-full"
-                  animate={{ x: ["0%", "-100%"] }}
-                  transition={{ 
-                    repeat: Infinity, 
-                    duration: 12 + index * 2, 
-                    ease: "linear",
-                    repeatDelay: 0 
-                  }}
-                >
-                  {[...category.skills, ...category.skills].map((skill, skillIndex) => (
-                    <motion.div
-                      key={skillIndex}
-                      className="flex flex-col items-center space-y-2 min-w-fit"
-                      whileHover={{ scale: 1.1, y: -5 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
-                      <div className="p-3 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl backdrop-blur-sm border border-primary/30 shadow-lg">
-                        <img
-                          src={skill.src}
-                          alt={skill.name}
-                          className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 object-contain"
-                        />
-                      </div>
-                      <span className="text-xs sm:text-sm font-medium text-content/80">{skill.name}</span>
-                    </motion.div>
-                  ))}
-                </motion.div>
+        {/* Skills Overview */}
+        <div className="text-center mb-8">
+          <p className="text-content/70 max-w-2xl mx-auto">
+            Here are the technologies and tools I work with. I'm always learning and growing! 🚀
+          </p>
+        </div>
+
+        {/* Skills Grid */}
+        <div className="grid gap-6">
+          {skillCategories.map((category, categoryIndex) => (
+            <motion.div
+              key={categoryIndex}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
+              className="relative group"
+            >
+              {/* Category Header */}
+              <div className="flex items-center space-x-3 mb-4">
+                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${category.color} flex items-center justify-center text-2xl shadow-lg`}>
+                  {category.icon}
+                </div>
+                <h3 className="text-xl md:text-2xl font-bold text-content group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-secondary group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+                  {category.category}
+                </h3>
               </div>
-            </div>
-          </motion.div>
-        ))}
+
+              {/* Skills Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {category.skills.map((skill, skillIndex) => (
+                  <motion.div
+                    key={skillIndex}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ 
+                      duration: 0.3, 
+                      delay: categoryIndex * 0.1 + skillIndex * 0.05 
+                    }}
+                    whileHover={{ scale: 1.05, y: -5 }}
+                    className="relative group/skill cursor-pointer"
+                  >
+                    <div className="bg-gradient-to-br from-surface/60 to-surface/40 rounded-xl p-4 border border-surface/30 group-hover/skill:border-primary/30 transition-all duration-300 backdrop-blur-sm">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-12 h-12 bg-gradient-to-br from-surface/80 to-surface/60 rounded-lg flex items-center justify-center p-2">
+                          <img
+                            src={skill.src}
+                            alt={skill.name}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-content group-hover/skill:text-primary transition-colors">
+                            {skill.name}
+                          </h4>
+                          <div className="flex items-center space-x-1 mt-1">
+                            {[...Array(5)].map((_, i) => (
+                              <StarIcon
+                                key={i}
+                                className={`w-3 h-3 ${
+                                  i < getSkillLevelStars(skill.level)
+                                    ? getSkillLevelColor(skill.level)
+                                    : 'text-content/20'
+                                }`}
+                                fill={i < getSkillLevelStars(skill.level) ? 'currentColor' : 'none'}
+                              />
+                            ))}
+                            <span className={`text-xs ml-2 ${getSkillLevelColor(skill.level)}`}>
+                              {skill.level}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Skills Summary */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+          className="bg-gradient-to-br from-surface/40 via-surface/30 to-surface/20 rounded-2xl p-6 border border-surface/20 text-center"
+        >
+          <h4 className="text-lg font-bold text-content/90 mb-3">
+            Always Learning 📚
+          </h4>
+          <p className="text-content/70 text-sm max-w-2xl mx-auto">
+            Technology evolves rapidly, and so do I. I'm constantly exploring new tools, frameworks, and best practices to stay current and deliver the best solutions.
+          </p>
+        </motion.div>
       </motion.div>
     ),
   },
@@ -193,7 +264,6 @@ const TAB_DATA = [
           </div>
         </div>
         
-        {/* Additional Education */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
