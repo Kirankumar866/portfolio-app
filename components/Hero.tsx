@@ -3,29 +3,37 @@ import { useState, useEffect } from "react";
 import { ParticleCanvas } from "@/hooks/particle";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 
+
+const ParticleCanvasDynamic = dynamic(() => import("@/hooks/particle").then(mod => ({ default: mod.ParticleCanvas })), {
+  ssr: false,
+  loading: () => null
+});
 
 export default function Hero() {
-    const {scrollY} = useScroll(); 
+    const {scrollY} = useScroll();
     const y = useTransform(scrollY, [0, 500], [0, 100]);
     const [index, setIndex] = useState(0);
+    const [mounted, setMounted] = useState(false);
     const titles = ["Full Stack Developer", "React Developer", "Java Developer", "Frontend Engineer"];
 
 
 
     useEffect(() => {
+        setMounted(true);
         const interval = setInterval(() => {
             setIndex((prevIndex) => (prevIndex + 1) % titles.length);
         }, 2000); // Change every 2 seconds
 
         return () => clearInterval(interval);
-    }, []);
+    }, [titles.length]);
 
     return(
         <section 
         id = "about"
         className='min-h-screen relative overflow-hidden bg-black'>
-            <ParticleCanvas/>
+            {mounted && <ParticleCanvasDynamic/>}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 lg:pt-24 pb-8 sm:pb-12 lg:pb-16">
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-8 sm:gap-12 lg:gap-16">
                     {/* Text Content */}
@@ -50,7 +58,7 @@ export default function Hero() {
                 transition={{ duration: 0.8, ease: "easeOut" }}
                 className="bg-gradient-to-r from-primary via-secondary to-tertiary bg-clip-text text-transparent"
             >
-                {titles[index]}
+                {mounted ? titles[index] : titles[0]}
             </motion.span>
         </motion.h1>
                         <motion.p
