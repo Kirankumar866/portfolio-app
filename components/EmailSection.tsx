@@ -193,17 +193,22 @@ const EmailSection = () => {
                     <ChatBubbleLeftRightIcon className="w-4 h-4 sm:w-5 sm:h-5 text-tertiary" />
                     <span>Your Message</span>
                   </label>
-                  <motion.textarea
-                    whileFocus={{ scale: 1.01 }}
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    required
-                    rows={4}
-                    maxLength={1000}
-                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-surface/50 border border-surface/50 rounded-lg sm:rounded-xl focus:border-tertiary/50 focus:outline-none transition-all duration-300 text-content placeholder-content/50 resize-none text-sm sm:text-base"
-                    placeholder="Tell me about your project, questions, or just say hello... (min 10 characters)"
-                  />
+                  <div className="relative">
+                    <motion.textarea
+                      whileFocus={{ scale: 1.01 }}
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      required
+                      rows={4}
+                      maxLength={1000}
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-surface/50 border border-surface/50 rounded-lg sm:rounded-xl focus:border-tertiary/50 focus:outline-none transition-all duration-300 text-content placeholder-content/50 resize-none text-sm sm:text-base"
+                      placeholder="Tell me about your project, questions, or just say hello... (min 10 characters)"
+                    />
+                    <div className="absolute bottom-2 right-3 text-xs text-content/50">
+                      {formData.message.length}/1000
+                    </div>
+                  </div>
                 </div>
 
                 {/* Submit Button */}
