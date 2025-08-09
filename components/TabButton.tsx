@@ -16,7 +16,7 @@ const TabButton: React.FC<TabButtonProps> = ({ active, selectTab, children }) =>
   return (
     <motion.button
       onClick={selectTab}
-      className="relative px-6 py-3 text-sm md:text-lg font-semibold focus:outline-none group"
+      className="relative px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3 text-xs sm:text-sm md:text-base lg:text-lg font-semibold focus:outline-none group"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       transition={{ type: "spring", stiffness: 300 }}
@@ -35,7 +35,7 @@ const TabButton: React.FC<TabButtonProps> = ({ active, selectTab, children }) =>
       
       {/* Background */}
       <motion.div
-        className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary/10 via-secondary/10 to-tertiary/10 backdrop-blur-sm border border-primary/20"
+        className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-br from-primary/10 via-secondary/10 to-tertiary/10 backdrop-blur-sm border border-primary/20"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ 
           opacity: active ? 1 : 0, 
@@ -46,7 +46,7 @@ const TabButton: React.FC<TabButtonProps> = ({ active, selectTab, children }) =>
       
       {/* Hover effect */}
       <motion.div
-        className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary/5 via-secondary/5 to-tertiary/5 backdrop-blur-sm"
+        className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-br from-primary/5 via-secondary/5 to-tertiary/5 backdrop-blur-sm"
         initial={{ opacity: 0 }}
         whileHover={{ opacity: active ? 0 : 1 }}
         transition={{ duration: 0.3 }}
@@ -63,7 +63,7 @@ const TabButton: React.FC<TabButtonProps> = ({ active, selectTab, children }) =>
       {/* Glowing effect for active state */}
       {active && (
         <motion.div
-          className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/20 via-secondary/20 to-tertiary/20 blur-md"
+          className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-r from-primary/20 via-secondary/20 to-tertiary/20 blur-md"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
