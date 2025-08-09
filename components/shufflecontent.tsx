@@ -46,16 +46,16 @@ const ShuffleButton = () => {
     };
 
     return (
-        <section className="py-32 relative">
-            <div className="max-w-7xl mx-auto px-6">
+        <section className="py-8 sm:py-12 lg:py-16 relative">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
                 {/* Section Heading */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
-                    className="flex flex-col items-center justify-center mb-10 text-center"
+                    className="flex flex-col items-center justify-center mb-6 sm:mb-8 lg:mb-10 text-center"
                 >
-                    <h2 className="text-4xl md:text-4xl font-bold text-content mb-4">Fun Facts!</h2>
+                    <h2 className="text-3xl sm:text-4xl font-bold text-content mb-3 sm:mb-4">Fun Facts!</h2>
                     <div className="w-24 h-1 bg-gradient-to-r from-primary to-tertiary rounded-full" />
                 </motion.div>
 
@@ -66,7 +66,7 @@ const ShuffleButton = () => {
                     transition={{ duration: 0.6 }}
                     className="text-center text-[#ADB7BE] mb-6"
                 >
-                    <p className="text-xl text-content/80 mb-8">{currentFact}</p>
+                    <p className="text-base sm:text-lg lg:text-xl text-content/80 mb-6 sm:mb-8 px-2">{currentFact}</p>
                 </motion.div>
 
                 {/* Shuffle Button */}
@@ -86,7 +86,7 @@ const ShuffleButton = () => {
                         }}
                         whileTap={{ scale: 0.95 }}
                         onClick={handleShuffle}
-                        className="font-bold relative overflow-hidden px-8 py-3 rounded-full bg-surface border border-white/10 
+                        className="font-bold relative overflow-hidden px-6 sm:px-8 py-2.5 sm:py-3 rounded-full bg-surface border border-white/10 
                                   hover:border-primary/30 transition-all group text-white"
                     >
                         Shuffle
