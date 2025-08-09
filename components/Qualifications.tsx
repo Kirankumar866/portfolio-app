@@ -534,7 +534,7 @@ const Qualifications = () => {
   return (
     <section id="Qualifications" className="text-white relative">
       <div className="absolute inset-0 bg-gradient-subtle opacity-30"></div>
-      <div className="relative flex flex-col items-center py-8 sm:py-12 lg:py-20 px-4 sm:px-6 lg:px-8 xl:px-16">
+      <div className="relative flex flex-col items-center py-6 sm:py-8 lg:py-12 px-4 sm:px-6 lg:px-8 xl:px-16">
         <motion.div
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
