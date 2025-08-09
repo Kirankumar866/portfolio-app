@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { Resend } from 'resend';
 
 // Email validation regex
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -53,21 +54,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Try to send email if SMTP is configured
-    if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+    // Try to send email using Resend
+    if (process.env.RESEND_API_KEY) {
       try {
-        const nodemailer = require('nodemailer');
-        
-        const transporter = nodemailer.createTransporter({
-          service: 'gmail',
-          auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS,
-          },
-        });
+        const resend = new Resend(process.env.RESEND_API_KEY);
 
-        const mailOptions = {
-          from: process.env.EMAIL_USER,
+        const { data, error } = await resend.emails.send({
+          from: 'Portfolio Contact <noreply@kiranparasa.dev>', // You'll need to verify this domain
           to: [
             'kirankumar201018@gmail.com',
             'parasakirankumar1825@gmail.com',
@@ -76,58 +69,83 @@ export async function POST(request: NextRequest) {
           replyTo: sanitizedEmail,
           subject: `New Portfolio Message from ${sanitizedName}`,
           html: `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
-              <div style="background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 50%, #8b5cf6 100%); padding: 30px; border-radius: 15px; text-align: center; margin-bottom: 30px;">
-                <h1 style="color: white; margin: 0; font-size: 28px;">New Portfolio Contact</h1>
+            <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f8fafc;">
+              <div style="background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 50%, #8b5cf6 100%); padding: 32px; border-radius: 16px; text-align: center; margin-bottom: 32px;">
+                <h1 style="color: white; margin: 0; font-size: 28px; font-weight: 700;">New Portfolio Contact</h1>
+                <p style="color: rgba(255,255,255,0.9); margin: 8px 0 0 0; font-size: 16px;">Someone reached out through your portfolio!</p>
               </div>
               
-              <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-                <h2 style="color: #333; margin-top: 0; border-bottom: 2px solid #0ea5e9; padding-bottom: 10px;">Contact Details</h2>
+              <div style="background: white; padding: 32px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); margin-bottom: 24px;">
+                <h2 style="color: #1f2937; margin: 0 0 24px 0; font-size: 24px; font-weight: 600; border-bottom: 3px solid #0ea5e9; padding-bottom: 12px;">Contact Details</h2>
                 
-                <div style="margin: 20px 0;">
-                  <strong style="color: #0ea5e9;">Name:</strong>
-                  <p style="margin: 5px 0; font-size: 16px;">${sanitizedName}</p>
+                <div style="margin: 24px 0;">
+                  <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                    <span style="background: #eff6ff; color: #0ea5e9; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Name</span>
+                  </div>
+                  <p style="margin: 0; font-size: 18px; color: #374151; font-weight: 500;">${sanitizedName}</p>
                 </div>
                 
-                <div style="margin: 20px 0;">
-                  <strong style="color: #0ea5e9;">Email:</strong>
-                  <p style="margin: 5px 0; font-size: 16px;">
-                    <a href="mailto:${sanitizedEmail}" style="color: #6366f1; text-decoration: none;">${sanitizedEmail}</a>
+                <div style="margin: 24px 0;">
+                  <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                    <span style="background: #f0f9ff; color: #0284c7; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Email</span>
+                  </div>
+                  <p style="margin: 0; font-size: 16px;">
+                    <a href="mailto:${sanitizedEmail}" style="color: #2563eb; text-decoration: none; font-weight: 500; background: #eff6ff; padding: 8px 12px; border-radius: 8px; display: inline-block;">${sanitizedEmail}</a>
                   </p>
                 </div>
                 
-                <div style="margin: 20px 0;">
-                  <strong style="color: #0ea5e9;">Message:</strong>
-                  <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 10px 0; border-left: 4px solid #0ea5e9;">
-                    <p style="margin: 0; line-height: 1.6; font-size: 16px;">${sanitizedMessage.replace(/\n/g, '<br>')}</p>
+                <div style="margin: 24px 0;">
+                  <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                    <span style="background: #fdf4ff; color: #a855f7; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Message</span>
+                  </div>
+                  <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border-left: 4px solid #0ea5e9; margin: 12px 0;">
+                    <p style="margin: 0; line-height: 1.7; font-size: 16px; color: #374151;">${sanitizedMessage.replace(/\n/g, '<br>')}</p>
                   </div>
                 </div>
               </div>
               
-              <div style="text-align: center; margin-top: 30px; color: #666; font-size: 14px;">
-                <p>This message was sent from your portfolio contact form.</p>
-                <p>Received on: ${new Date().toLocaleString()}</p>
+              <div style="background: white; padding: 24px; border-radius: 12px; border: 1px solid #e5e7eb;">
+                <h3 style="margin: 0 0 16px 0; color: #374151; font-size: 18px; font-weight: 600;">Quick Actions</h3>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                  <a href="mailto:${sanitizedEmail}?subject=Re: Your message to Kiran Kumar Parasa" style="background: #0ea5e9; color: white; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-block;">Reply to ${sanitizedName}</a>
+                  <a href="tel:+1234567890" style="background: #6366f1; color: white; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-block;">Schedule Call</a>
+                </div>
+              </div>
+              
+              <div style="text-align: center; margin-top: 32px; padding: 16px; background: #f1f5f9; border-radius: 8px;">
+                <p style="margin: 0; color: #64748b; font-size: 14px;">
+                  This message was sent from your portfolio contact form on <strong>${new Date().toLocaleDateString()}</strong> at <strong>${new Date().toLocaleTimeString()}</strong>
+                </p>
+                <p style="margin: 8px 0 0 0; color: #94a3b8; font-size: 12px;">
+                  Reply within 24 hours to maintain high response rates ⚡
+                </p>
               </div>
             </div>
           `,
-        };
+        });
 
-        await transporter.sendMail(mailOptions);
-        
+        if (error) {
+          console.error('Resend error:', error);
+          throw new Error('Failed to send email via Resend');
+        }
+
         // Log successful email
-        console.log(`Email sent successfully from ${sanitizedEmail}`);
+        console.log(`Email sent successfully via Resend. ID: ${data?.id}`);
         
         return NextResponse.json(
-          { message: 'Message sent successfully!' },
+          { 
+            message: 'Message sent successfully! I will get back to you within 24 hours.',
+            emailId: data?.id 
+          },
           { status: 200 }
         );
       } catch (emailError) {
-        console.error('Email sending failed:', emailError);
+        console.error('Resend email sending failed:', emailError);
         // Fall through to logging approach
       }
     }
 
-    // Fallback: Log the message (for development/debugging)
+    // Fallback: Log the message and provide mailto option
     const contactData = {
       name: sanitizedName,
       email: sanitizedEmail,
@@ -137,21 +155,22 @@ export async function POST(request: NextRequest) {
       ip: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'Unknown'
     };
 
-    // Log to console (in production you might want to log to a file or database)
-    console.log('New contact form submission:', JSON.stringify(contactData, null, 2));
+    // Log to console (in production this could be logged to a database)
+    console.log('📧 New contact form submission:', JSON.stringify(contactData, null, 2));
 
     return NextResponse.json(
       { 
-        message: 'Message received successfully! I will get back to you soon.',
-        mailtoLink: `mailto:kirankumar201018@gmail.com?subject=Message from ${encodeURIComponent(sanitizedName)}&body=${encodeURIComponent(`From: ${sanitizedName} (${sanitizedEmail})\n\nMessage:\n${sanitizedMessage}`)}`
+        message: 'Message received! I will get back to you soon. You can also email me directly if needed.',
+        note: 'Email service is currently in setup mode. Your message has been logged.',
+        directEmail: 'kirankumar201018@gmail.com'
       },
       { status: 200 }
     );
 
   } catch (error) {
-    console.error('Contact form error:', error);
+    console.error('❌ Contact form error:', error);
     return NextResponse.json(
-      { error: 'Something went wrong. Please try again or contact me directly.' },
+      { error: 'Something went wrong. Please try emailing me directly at kirankumar201018@gmail.com' },
       { status: 500 }
     );
   }
