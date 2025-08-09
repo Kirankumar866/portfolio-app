@@ -57,7 +57,7 @@ const EmailSection = () => {
   };
 
   return (
-    <section id="contact" className="relative py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section id="contact" className="relative py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-subtle opacity-30"></div>
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-gradient-to-r from-primary/20 via-secondary/20 to-tertiary/20 rounded-full blur-3xl"></div>
