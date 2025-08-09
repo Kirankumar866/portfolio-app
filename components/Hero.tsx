@@ -77,12 +77,10 @@ export default function Hero() {
                             whileTap={{ scale: 0.95 }}
                             className="relative overflow-hidden px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-surface border border-white/10 
                                         hover:border-primary/30 transition-all group mx-auto lg:mx-0 inline-block"
-                            href="mailto:kirankumar201018@gmail.com?cc=parasakirankumar1825@gmail.com,s561500@nwmissouri.edu&subject=Hello Kiran, this is an offer to hire you!&body=Hi Kiran,"
-                            target="_blank"
-                            rel="nofollow noopener noreferrer"
+                            href="#contact"
                             >
                             <span className="text-content/90 group-hover:text-primary transition-colors font-bold font-mono text-sm sm:text-base">
-                                Hire me!
+                                Send Message
                             </span>
                             
                             {/* Fix gradient overflow issue */}
