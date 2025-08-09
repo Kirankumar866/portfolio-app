@@ -6,11 +6,12 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next build",
+    "postbuild": "next-on-netlify"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
-    "@netlify/plugin-nextjs": "^5.12.0",
     "@splitbee/web": "^0.3.0",
     "framer-motion": "^12.4.2",
     "heroicons": "^2.2.0",
