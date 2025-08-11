@@ -68,7 +68,7 @@ export default async (req: Request, context: Context) => {
         const resend = new Resend(Netlify.env.get('RESEND_API_KEY'));
 
         const { data, error } = await resend.emails.send({
-          from: 'Portfolio Contact <noreply@kiranparasa.dev>',
+          from: 'Portfolio Contact <onboarding@resend.dev>',
           to: [
             'kirankumar201018@gmail.com',
             'parasakirankumar1825@gmail.com',
