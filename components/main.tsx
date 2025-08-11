@@ -9,6 +9,19 @@ import TabButton from "./TabButton"; // Import TabButton
 
 const projects = [
     {
+        title: "CookCraft Culinary App",
+        description: "A comprehensive culinary application for exploring amazing home cooking projects and their stories",
+        tag: ["All", "Web"],
+        tech: [
+            { name: "React", icon: FaReact, color: "#61DAFB" },
+            { name: "Next.js", icon: SiNextdotjs, color: "#000000" },
+            { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" }
+        ],
+        image: "https://cdn.builder.io/api/v1/image/assets%2F6c85aef6d4144507985b5fb9594301e8%2Faa9d1e99816942189bdac875e3ab412a?format=webp&width=800",
+        href: "https://cookcraft-culinary-app.netlify.app",
+        github: "https://github.com/Kirankumar866/CulinaryInspire/"
+    },
+    {
         title: "Portfolio",
         description: "I have done this project to represent myself to the world",
         tag: ["All", "Web"],
