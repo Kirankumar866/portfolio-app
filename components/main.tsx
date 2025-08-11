@@ -165,10 +165,18 @@ export default function Main() {
                             <motion.div className="p-6 bg-surface" transition={{ duration: 0.3 }}>
                                 <div className="flex justify-between items-start mb-4">
                                     <h3 className="text-2xl font-bold text-content">{project.title}</h3>
-                                    <a href={project.href} target="_blank" rel="noopener noreferrer">
-                                        <ArrowUpRightIcon className="h-6 w-6 text-content/50 group-hover:text-primary transition-colors duration-300" />
-                                    </a>
-                                                                        
+                                    <div className="flex gap-2">
+                                        {project.github && (
+                                            <a href={project.github} target="_blank" rel="noopener noreferrer"
+                                               className="p-1 hover:bg-white/10 rounded transition-colors duration-300">
+                                                <FaGithub className="h-5 w-5 text-content/50 group-hover:text-primary transition-colors duration-300" />
+                                            </a>
+                                        )}
+                                        <a href={project.href} target="_blank" rel="noopener noreferrer"
+                                           className="p-1 hover:bg-white/10 rounded transition-colors duration-300">
+                                            <ArrowUpRightIcon className="h-5 w-5 text-content/50 group-hover:text-primary transition-colors duration-300" />
+                                        </a>
+                                    </div>
                                 </div>
                                 <p className="text-content/80 mb-4">{project.description}</p>
                                 <div className="flex flex-wrap gap-2">
