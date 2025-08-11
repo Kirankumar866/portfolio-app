@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
         const resend = new Resend(process.env.RESEND_API_KEY);
 
         const { data, error } = await resend.emails.send({
-          from: 'Portfolio Contact <noreply@kiranparasa.dev>', // You'll need to verify this domain
+          from: 'Portfolio Contact <onboarding@resend.dev>', // Using Resend's verified domain
           to: [
             'kirankumar201018@gmail.com',
             'parasakirankumar1825@gmail.com',
