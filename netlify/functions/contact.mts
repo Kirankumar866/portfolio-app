@@ -62,18 +62,14 @@ export default async (req: Request, context: Context) => {
     }
 
     // Try to send email using Resend
-    if (Netlify.env.get('RESEND_API_KEY')) {
+    if (process.env.RESEND_API_KEY) {
       try {
         const { Resend } = await import('resend');
-        const resend = new Resend(Netlify.env.get('RESEND_API_KEY'));
+        const resend = new Resend(process.env.RESEND_API_KEY);
 
         const { data, error } = await resend.emails.send({
           from: 'Portfolio Contact <onboarding@resend.dev>',
-          to: [
-            'kirankumar201018@gmail.com',
-            'parasakirankumar1825@gmail.com',
-            's561500@nwmissouri.edu'
-          ],
+          to: 'kirankumar201018@gmail.com', // Single email for test mode
           replyTo: sanitizedEmail,
           subject: `New Portfolio Message from ${sanitizedName}`,
           html: `
