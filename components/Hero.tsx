@@ -67,7 +67,7 @@ export default function Hero() {
                         transition={{delay:1.1, duration:0.8, ease: "easeOut"}}
                         className="text-base sm:text-lg lg:text-xl text-content/80 mb-6 sm:mb-8 text-center lg:text-left leading-relaxed px-2 lg:px-0"
                         >
-                            I am a software engineer with 3 years of experience in full-stack development, specializing in Java Spring Boot, microservices, and cloud-based solutions. I excel in building scalable backend systems and responsive front-end interfaces using ReactJS and AngularJS. Proficient in PostgreSQL, MySQL, and MongoDB, I also have hands-on experience with Docker, Kubernetes, and CI/CD pipelines using Jenkins. Passionate about developing secure, high-performance applications that enhance business efficiency.
+                Full-stack Software Engineer with 3+ years of experience building scalable microservices, cloud-native solutions, and responsive frontends in the healthcare domain. Skilled in Java Spring Boot, ReactJS, cloud platforms, and CI/CD automation, with a strong foundation in databases and system optimization. Enthusiastic about building with AI, having developed products using Cursor AI to accelerate development, testing, and innovation.
                         </motion.p>
                         <motion.a
                             initial={{ opacity: 0, y: 10 }}
