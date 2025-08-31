@@ -9,6 +9,32 @@ import TabButton from "./TabButton"; // Import TabButton
 
 const projects = [
     {
+        title: "RentRite",
+        description: "RentRite is a modern property management application that helps landlords track properties, tenants, rent payments, and maintenance requests. Built with cutting-edge technologies, it offers a sleek, responsive interface that works seamlessly on all devices.",
+        tag: ["All", "Web"],
+        tech: [
+            { name: "React", icon: FaReact, color: "#61DAFB" },
+            { name: "Next.js", icon: SiNextdotjs, color: "#000000" },
+            { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" }
+        ],
+        image: "https://cdn.builder.io/api/v1/image/assets%2F6c85aef6d4144507985b5fb9594301e8%2Fba98c153ea4f44e38e61c5ca222db46b?format=webp&width=800",
+        href: "https://github.com/Kirankumar866/RentWise",
+        github: "https://github.com/Kirankumar866/RentWise"
+    },
+    {
+        title: "Snake Game",
+        description: "A classic Snake game built with modern web technologies. Navigate the snake to eat food and grow longer while avoiding collisions. Features responsive controls and smooth gameplay.",
+        tag: ["All", "Web"],
+        tech: [
+            { name: "React", icon: FaReact, color: "#61DAFB" },
+            { name: "Next.js", icon: SiNextdotjs, color: "#000000" },
+            { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" }
+        ],
+        image: "https://cdn.builder.io/api/v1/image/assets%2F6c85aef6d4144507985b5fb9594301e8%2Ff19515112fcb481199bca40e348db930?format=webp&width=800",
+        href: "https://snake-game-ebon-iota.vercel.app/",
+        github: "https://github.com/Kirankumar866/snakeGame"
+    },
+    {
         title: "CookCraft Culinary App",
         description: "A comprehensive culinary application for exploring amazing home cooking projects and their stories",
         tag: ["All", "Web"],
@@ -31,7 +57,7 @@ const projects = [
             { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" }
         ],
         image: "/projects/portfolio.png",
-        href: "https://github.com/Kirankumar866/nxtWatchApp"
+        href: "https://github.com/Kirankumar866/"
     },
     {
         title: "Video Stream App",

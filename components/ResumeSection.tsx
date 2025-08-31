@@ -8,8 +8,8 @@ export default function ResumeSection() {
                 Click the button below to download my resume in PDF format.
             </p>
             <a
-                href="/KiranKumarParasa.pdf"
-                download="Kiran_Kumar_Resume.pdf"
+                href="/kirankumar_sde.pdf"
+                download="KiranKumar_SDE.pdf"
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-tertiary text-white font-semibold py-2.5 sm:py-3 px-5 sm:px-6 rounded-lg shadow-lg hover:scale-105 transition-transform text-sm sm:text-base"
             >
                 <ArrowDownTrayIcon className="h-5 w-5" />

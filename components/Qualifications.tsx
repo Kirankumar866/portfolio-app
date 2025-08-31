@@ -61,7 +61,7 @@ const skillCategories = [
       { name: "VS Code", src: "/skills/vscode.png", level: "Expert" },
       { name: "Postman", src: "/skills/postman.png", level: "Advanced" },
       { name: "Figma", src: "/skills/figma.png", level: "Intermediate" },
-      { name: "IntelliJ", src: "/skills/intellij.png", level: "Advanced" },
+      { name: "IntelliJ", src: "/skills/intelliJ.png", level: "Advanced" },
     ],
   },
 ];
@@ -440,22 +440,6 @@ const TAB_DATA = [
             description: "Foundational cloud computing knowledge and AWS services",
             color: "from-orange-500 to-yellow-500",
             icon: "☁️"
-          },
-          {
-            title: "Google Professional Cloud Developer",
-            issuer: "Google Cloud",
-            date: "2023",
-            description: "Professional-level cloud development and deployment skills",
-            color: "from-blue-500 to-green-500",
-            icon: "🏗️"
-          },
-          {
-            title: "Oracle Certified Associate",
-            issuer: "Oracle Corporation",
-            date: "2022",
-            description: "Java programming fundamentals and object-oriented concepts",
-            color: "from-red-500 to-orange-500",
-            icon: "☕"
           }
         ].map((cert, index) => (
           <motion.div
@@ -505,6 +489,52 @@ const TAB_DATA = [
           </motion.div>
         ))}
         
+        {/* Working On Note */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="relative group"
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-orange-500/5 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+          <div className="relative bg-gradient-to-br from-surface/60 via-surface/40 to-surface/30 rounded-2xl p-6 backdrop-blur-sm border border-dashed border-primary/30 shadow-xl overflow-hidden">
+            <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-orange-500/10 to-yellow-500/10 rounded-full blur-xl -translate-y-8 translate-x-8"></div>
+
+            <div className="relative flex items-start space-x-4">
+              <motion.div
+                animate={{ rotate: [0, 10, -10, 0] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                className="w-16 h-16 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-xl flex items-center justify-center text-2xl shadow-lg"
+              >
+                📚
+              </motion.div>
+
+              <div className="flex-1 space-y-2">
+                <div className="flex items-start justify-between">
+                  <h4 className="text-xl font-bold text-content/90 group-hover:bg-gradient-to-r group-hover:from-orange-500 group-hover:to-yellow-500 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+                    Currently Working On
+                  </h4>
+                  <motion.div
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="bg-gradient-to-br from-orange-500/20 to-yellow-500/20 rounded-full p-2"
+                  >
+                    <span className="text-lg">🎯</span>
+                  </motion.div>
+                </div>
+
+                <p className="text-lg font-semibold text-content/90">AWS Solutions Architect Certification</p>
+                <p className="text-content/60 text-sm">Preparing for professional-level AWS architecture and design skills</p>
+
+                <div className="flex items-center space-x-2 mt-3">
+                  <CalendarIcon className="w-4 h-4 text-orange-500" />
+                  <span className="text-sm text-content/70">Target: 2025</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
