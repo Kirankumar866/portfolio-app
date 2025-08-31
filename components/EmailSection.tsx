@@ -110,9 +110,9 @@ const EmailSection = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          message: formData.message.trim()
+          name: trimmedName,
+          email: trimmedEmail,
+          message: trimmedMessage
         }),
       });
 
