@@ -440,22 +440,6 @@ const TAB_DATA = [
             description: "Foundational cloud computing knowledge and AWS services",
             color: "from-orange-500 to-yellow-500",
             icon: "☁️"
-          },
-          {
-            title: "Google Professional Cloud Developer",
-            issuer: "Google Cloud",
-            date: "2023",
-            description: "Professional-level cloud development and deployment skills",
-            color: "from-blue-500 to-green-500",
-            icon: "🏗️"
-          },
-          {
-            title: "Oracle Certified Associate",
-            issuer: "Oracle Corporation",
-            date: "2022",
-            description: "Java programming fundamentals and object-oriented concepts",
-            color: "from-red-500 to-orange-500",
-            icon: "☕"
           }
         ].map((cert, index) => (
           <motion.div
