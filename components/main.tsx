@@ -57,7 +57,7 @@ const projects = [
             { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" }
         ],
         image: "/projects/portfolio.png",
-        href: "https://github.com/Kirankumar866/nxtWatchApp"
+        href: "https://github.com/Kirankumar866/"
     },
     {
         title: "Video Stream App",
