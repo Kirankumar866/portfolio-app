@@ -61,7 +61,7 @@ const skillCategories = [
       { name: "VS Code", src: "/skills/vscode.png", level: "Expert" },
       { name: "Postman", src: "/skills/postman.png", level: "Advanced" },
       { name: "Figma", src: "/skills/figma.png", level: "Intermediate" },
-      { name: "IntelliJ", src: "/skills/intellij.png", level: "Advanced" },
+      { name: "IntelliJ", src: "/skills/intelliJ.png", level: "Advanced" },
     ],
   },
 ];
