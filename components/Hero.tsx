@@ -67,7 +67,7 @@ export default function Hero() {
                         transition={{delay:1.1, duration:0.8, ease: "easeOut"}}
                         className="text-base sm:text-lg lg:text-xl text-content/80 mb-6 sm:mb-8 text-center lg:text-left leading-relaxed px-2 lg:px-0"
                         >
-                Full-stack Software Engineer with 3+ years of experience building scalable microservices, cloud-native solutions, and responsive frontends in the healthcare domain. Skilled in Java Spring Boot, ReactJS, cloud platforms, and CI/CD automation, with a strong foundation in databases and system optimization. Enthusiastic about building with AI, having developed products using Cursor AI to accelerate development, testing, and innovation.
+                Full-stack Software Engineer with 3+ years of experience building scalable microservices, cloud-native solutions, and responsive frontends in the healthcare domain. Skilled in Java Spring Boot, ReactJS, cloud platforms, and CI/CD automation, with a strong foundation in databases and system optimization. Enthusiastic about building side projects with AI, including products developed using Cursor AI to accelerate development, testing, and innovation.
                         </motion.p>
                         <motion.a
                             initial={{ opacity: 0, y: 10 }}
