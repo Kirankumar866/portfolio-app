@@ -3,21 +3,19 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const funFacts = [
-    "I love to sketch, anything and everything.",
-    "Got myself into fitness, I am more into building stamina rather than fitness.",
-    "Honey never spoils. So I believe a skill learnt never gets wasted.",
-    "An octopus has three hearts. I just have one 😄",
-    "I am persistent with the tasks I take up.",
-    "Sometimes I try to test my memory by remembering the lyrics of a song.",
-    "I love nature. The lake, the breeze, the trees and the chirping of those birds.",
-    "I always love meeting new people and so attending weddings. A lot of food and a lot of people.",
-    "Orange is my favourite colour. But I started loving blue too. Still orange is my favourite😁.",
-    "I listen to all kinds of music, drop me your favourite song. Will definitely listen to it.",
-    "I speak English, Hindi, and Telugu. Can understand Punjabi and Kannada too. Trying to learn Spanish.",
-    "I want to travel the world. I have a list of places to visit. I will share it with you if you ask me.",
-    "I am a foodie. I love to try different cuisines. I am a vegetarian though.",
-    "I am a movie buff. I watch movies of all genres. I love to watch movies in theatres.",
-    "I love to listen to people's stories."
+  "Honey never spoils. So I believe a skill learnt never gets wasted.",
+  "An octopus has three hearts. I just have one 😄",
+  "I am persistent with the tasks I take up.",
+  "Sometimes I try to test my memory by remembering the lyrics of a song.",
+  "I love nature. The lake, the breeze, the trees and the chirping of those birds.",
+  "I always love meeting new people and so attending weddings. A lot of food and a lot of people.",
+  "Orange is my favourite colour. But I started loving blue too. Still orange is my favourite😁.",
+  "I listen to all kinds of music, drop me your favourite song. Will definitely listen to it.",
+  "I speak English, Hindi, and Telugu. Trying to learn Spanish.",
+
+  "I am a foodie. I love to try different cuisines. I am a vegetarian though.",
+  "I am a movie buff. I watch movies of all genres. I love to watch movies in theatres.",
+  "I love to listen to people's stories."
 ];
 
 const ShuffleButton = () => {
