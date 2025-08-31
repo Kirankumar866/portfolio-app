@@ -40,29 +40,63 @@ const EmailSection = () => {
     setErrorMessage('');
     setSuccessMessage('');
 
-    // Client-side validation
-    if (formData.name.trim().length < 2) {
+    // Client-side validation with enhanced edge case handling
+    const trimmedName = formData.name.trim();
+    const trimmedEmail = formData.email.trim();
+    const trimmedMessage = formData.message.trim();
+
+    // Check for empty or whitespace-only inputs
+    if (!trimmedName) {
+      setErrorMessage('Please enter your name');
+      setSubmitStatus('error');
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!trimmedEmail) {
+      setErrorMessage('Please enter your email address');
+      setSubmitStatus('error');
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!trimmedMessage) {
+      setErrorMessage('Please enter a message');
+      setSubmitStatus('error');
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Validate lengths
+    if (trimmedName.length < 2) {
       setErrorMessage('Name must be at least 2 characters long');
       setSubmitStatus('error');
       setIsSubmitting(false);
       return;
     }
 
-    if (!validateEmail(formData.email)) {
+    if (trimmedName.length > 100) {
+      setErrorMessage('Name must be less than 100 characters');
+      setSubmitStatus('error');
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!validateEmail(trimmedEmail)) {
       setErrorMessage('Please enter a valid email address');
       setSubmitStatus('error');
       setIsSubmitting(false);
       return;
     }
 
-    if (formData.message.trim().length < 10) {
+    if (trimmedMessage.length < 10) {
       setErrorMessage('Message must be at least 10 characters long');
       setSubmitStatus('error');
       setIsSubmitting(false);
       return;
     }
 
-    if (formData.message.trim().length > 1000) {
+    if (trimmedMessage.length > 1000) {
       setErrorMessage('Message must be less than 1000 characters');
       setSubmitStatus('error');
       setIsSubmitting(false);
