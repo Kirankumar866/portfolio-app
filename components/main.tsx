@@ -31,7 +31,7 @@ const projects = [
             { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" }
         ],
         image: "https://cdn.builder.io/api/v1/image/assets%2F6c85aef6d4144507985b5fb9594301e8%2Ff19515112fcb481199bca40e348db930?format=webp&width=800",
-        href: "https://github.com/Kirankumar866/snakeGame",
+        href: "https://snake-game-ebon-iota.vercel.app/",
         github: "https://github.com/Kirankumar866/snakeGame"
     },
     {
