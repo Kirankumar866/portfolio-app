@@ -16,7 +16,7 @@ export default function Hero() {
     const y = useTransform(scrollY, [0, 500], [0, 100]);
     const [index, setIndex] = useState(0);
     const [mounted, setMounted] = useState(false);
-    const titles = ["Full Stack Developer", "React Developer", "Java Developer", "Frontend Engineer"];
+    const titles = ["Full Stack Developer","Java Developer", "Frontend Developer"];
 
 
 
