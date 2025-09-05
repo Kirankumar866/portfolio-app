@@ -44,7 +44,7 @@ export default function Navbar() {
                         <div className="relative h-10 w-10 sm:h-12 sm:w-12 rounded-full overflow-hidden">
                             <div className="absolute inset-0 bg-gradient-to-r from-primary to-tertiary animate-spin-slow [mask-image:linear-gradient(transparent,white)]"></div>
                             <div className="absolute inset-[2px] bg-background rounded-full flex items-center justify-center">
-                                <Image src="/logo.png" width={36} height={40} alt="Logo" className="h-8 w-7 sm:h-10 sm:w-9 object-contain" />
+                                <Image src="/logo.png" width={36} height={40} alt="Logo" className="w-full h-full object-cover rounded-full" />
                             </div>
                         </div>
                         <span className="text-sm sm:text-base lg:text-lg font-semibold text-content/90 group-hover:text-primary transition-colors hidden xs:block">
