@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { GithubIcon, LinkedInIcon } from './social-icons';
-import { PaperAirplaneIcon, UserIcon, EnvelopeIcon, ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
+import { PaperAirplaneIcon, UserIcon, EnvelopeIcon, ChatBubbleLeftRightIcon, CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline';
 
 const socialLinks = {
-    github: "https://github.com/kirankumar866",
-    linkedin: "https://www.linkedin.com/in/kiran-kumar-parasa-09210b325/"
+  github: "https://github.com/kirankumar866",
+  linkedin: "https://www.linkedin.com/in/kiran-kumar-parasa-09210b325/"
 };
 
 const EmailSection = () => {
@@ -19,6 +19,7 @@ const EmailSection = () => {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [focusedField, setFocusedField] = useState<string | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -40,64 +41,24 @@ const EmailSection = () => {
     setErrorMessage('');
     setSuccessMessage('');
 
-    // Client-side validation with enhanced edge case handling
     const trimmedName = formData.name.trim();
     const trimmedEmail = formData.email.trim();
     const trimmedMessage = formData.message.trim();
 
-    // Check for empty or whitespace-only inputs
     if (!trimmedName) {
       setErrorMessage('Please enter your name');
       setSubmitStatus('error');
       setIsSubmitting(false);
       return;
     }
-
-    if (!trimmedEmail) {
-      setErrorMessage('Please enter your email address');
-      setSubmitStatus('error');
-      setIsSubmitting(false);
-      return;
-    }
-
-    if (!trimmedMessage) {
-      setErrorMessage('Please enter a message');
-      setSubmitStatus('error');
-      setIsSubmitting(false);
-      return;
-    }
-
-    // Validate lengths
-    if (trimmedName.length < 2) {
-      setErrorMessage('Name must be at least 2 characters long');
-      setSubmitStatus('error');
-      setIsSubmitting(false);
-      return;
-    }
-
-    if (trimmedName.length > 100) {
-      setErrorMessage('Name must be less than 100 characters');
-      setSubmitStatus('error');
-      setIsSubmitting(false);
-      return;
-    }
-
-    if (!validateEmail(trimmedEmail)) {
+    if (!trimmedEmail || !validateEmail(trimmedEmail)) {
       setErrorMessage('Please enter a valid email address');
       setSubmitStatus('error');
       setIsSubmitting(false);
       return;
     }
-
-    if (trimmedMessage.length < 10) {
-      setErrorMessage('Message must be at least 10 characters long');
-      setSubmitStatus('error');
-      setIsSubmitting(false);
-      return;
-    }
-
-    if (trimmedMessage.length > 1000) {
-      setErrorMessage('Message must be less than 1000 characters');
+    if (!trimmedMessage || trimmedMessage.length < 10) {
+      setErrorMessage('Message must be at least 10 characters');
       setSubmitStatus('error');
       setIsSubmitting(false);
       return;
@@ -106,24 +67,14 @@ const EmailSection = () => {
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: trimmedName,
-          email: trimmedEmail,
-          message: trimmedMessage
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: trimmedName, email: trimmedEmail, message: trimmedMessage }),
       });
-
       const data = await response.json();
-
       if (response.ok) {
         setSubmitStatus('success');
         setSuccessMessage(data.message || 'Message sent successfully!');
         setFormData({ name: '', email: '', message: '' });
-
-        // If there's a mailto fallback, offer it to the user
         if (data.mailtoLink) {
           setTimeout(() => {
             if (window.confirm('Would you like to also send this message directly via your email client?')) {
@@ -133,160 +84,192 @@ const EmailSection = () => {
         }
       } else {
         setSubmitStatus('error');
-        setErrorMessage(data.error || 'Failed to send message. Please try again.');
+        setErrorMessage(data.error || 'Failed to send message.');
       }
-    } catch (error) {
-      console.error('Error sending message:', error);
+    } catch {
       setSubmitStatus('error');
-      setErrorMessage('Network error. Please check your connection and try again.');
+      setErrorMessage('Network error. Please check your connection.');
     } finally {
       setIsSubmitting(false);
-      // Reset status after 5 seconds
-      setTimeout(() => {
-        setSubmitStatus('idle');
-        setErrorMessage('');
-        setSuccessMessage('');
-      }, 5000);
+      setTimeout(() => { setSubmitStatus('idle'); setErrorMessage(''); setSuccessMessage(''); }, 5000);
     }
   };
 
+  const inputFields = [
+    { name: 'name', label: 'Your Name', icon: UserIcon, type: 'text', placeholder: 'Enter your full name', color: 'primary' },
+    { name: 'email', label: 'Your Email', icon: EnvelopeIcon, type: 'email', placeholder: 'Enter your email address', color: 'secondary' },
+  ];
+
   return (
-    <section id="contact" className="relative py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section id="contact" className="relative py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-subtle opacity-30"></div>
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-gradient-to-r from-primary/20 via-secondary/20 to-tertiary/20 rounded-full blur-3xl"></div>
-      
-      <div className="relative max-w-4xl mx-auto">
+      <motion.div
+        className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px] pointer-events-none"
+        animate={{ scale: [1, 1.1, 1] }}
+        transition={{ duration: 10, repeat: Infinity }}
+      />
+      <motion.div
+        className="absolute bottom-1/3 right-1/4 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[150px] pointer-events-none"
+        animate={{ scale: [1.1, 1, 1.1] }}
+        transition={{ duration: 10, repeat: Infinity }}
+      />
+
+      <div className="relative max-w-5xl mx-auto z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-8 sm:mb-12"
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold bg-gradient-to-r from-primary via-secondary to-tertiary bg-clip-text text-transparent mb-3 sm:mb-4">
-            Let's Connect
+          <motion.span
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-sm font-mono text-primary/70 tracking-wider uppercase mb-3 block"
+          >
+            Contact
+          </motion.span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold bg-gradient-to-r from-content via-primary to-secondary bg-clip-text text-transparent mb-4">
+            Let&apos;s Connect
           </h2>
-          <p className="text-base sm:text-lg text-content/70 max-w-2xl mx-auto px-4">
-            I'm currently looking for new opportunities, and my inbox is always open. 
-            Whether you have a question or just want to say hi, I'll try my best to get back to you!
+          <p className="text-content/50 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
+            I&apos;m currently looking for new opportunities. Whether you have a question or just want to say hi, I&apos;ll try my best to get back to you!
           </p>
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: 96 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="h-1 bg-gradient-to-r from-primary to-secondary rounded-full mx-auto mt-4"
+          />
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-start">
           {/* Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative order-2 lg:order-1"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="lg:col-span-3 order-2 lg:order-1"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/10 to-tertiary/10 rounded-xl lg:rounded-3xl blur-xl"></div>
-            <div className="relative bg-gradient-to-br from-surface/80 via-surface/60 to-surface/40 rounded-xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 backdrop-blur-sm border border-surface/30 shadow-2xl">
-              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-                {/* Name Field */}
-                <div className="space-y-2">
-                  <label className="flex items-center space-x-2 text-content/80 font-medium text-sm sm:text-base">
-                    <UserIcon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-                    <span>Your Name</span>
-                  </label>
-                  <motion.input
-                    whileFocus={{ scale: 1.01 }}
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-surface/50 border border-surface/50 rounded-lg sm:rounded-xl focus:border-primary/50 focus:outline-none transition-all duration-300 text-content placeholder-content/50 text-sm sm:text-base"
-                    placeholder="Enter your full name"
-                    maxLength={100}
-                  />
-                </div>
+            <div className="glass rounded-2xl p-6 sm:p-8 relative overflow-hidden">
+              {/* Decorative element */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/10 to-transparent rounded-bl-full pointer-events-none" />
 
-                {/* Email Field */}
-                <div className="space-y-2">
-                  <label className="flex items-center space-x-2 text-content/80 font-medium text-sm sm:text-base">
-                    <EnvelopeIcon className="w-4 h-4 sm:w-5 sm:h-5 text-secondary" />
-                    <span>Your Email</span>
-                  </label>
-                  <motion.input
-                    whileFocus={{ scale: 1.01 }}
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-surface/50 border border-surface/50 rounded-lg sm:rounded-xl focus:border-secondary/50 focus:outline-none transition-all duration-300 text-content placeholder-content/50 text-sm sm:text-base"
-                    placeholder="Enter your email address"
-                    maxLength={254}
-                  />
-                </div>
+              <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+                {inputFields.map((field, i) => (
+                  <motion.div
+                    key={field.name}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3 + i * 0.1 }}
+                    className="space-y-2"
+                  >
+                    <label className="flex items-center space-x-2 text-content/60 font-medium text-sm">
+                      <field.icon className={`w-4 h-4 text-${field.color}`} />
+                      <span>{field.label}</span>
+                    </label>
+                    <div className={`relative rounded-xl transition-all duration-300 ${focusedField === field.name ? 'shadow-glow-sm' : ''}`}>
+                      <input
+                        type={field.type}
+                        name={field.name}
+                        value={formData[field.name as keyof typeof formData]}
+                        onChange={handleInputChange}
+                        onFocus={() => setFocusedField(field.name)}
+                        onBlur={() => setFocusedField(null)}
+                        required
+                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-primary/50 focus:bg-white/8 focus:outline-none transition-all duration-300 text-content placeholder-content/30 text-sm"
+                        placeholder={field.placeholder}
+                      />
+                    </div>
+                  </motion.div>
+                ))}
 
-                {/* Message Field */}
-                <div className="space-y-2">
-                  <label className="flex items-center space-x-2 text-content/80 font-medium text-sm sm:text-base">
-                    <ChatBubbleLeftRightIcon className="w-4 h-4 sm:w-5 sm:h-5 text-tertiary" />
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.5 }}
+                  className="space-y-2"
+                >
+                  <label className="flex items-center space-x-2 text-content/60 font-medium text-sm">
+                    <ChatBubbleLeftRightIcon className="w-4 h-4 text-tertiary" />
                     <span>Your Message</span>
                   </label>
-                  <div className="relative">
-                    <motion.textarea
-                      whileFocus={{ scale: 1.01 }}
+                  <div className={`relative rounded-xl transition-all duration-300 ${focusedField === 'message' ? 'shadow-glow-sm' : ''}`}>
+                    <textarea
                       name="message"
                       value={formData.message}
                       onChange={handleInputChange}
+                      onFocus={() => setFocusedField('message')}
+                      onBlur={() => setFocusedField(null)}
                       required
-                      rows={4}
+                      rows={5}
                       maxLength={1000}
-                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-surface/50 border border-surface/50 rounded-lg sm:rounded-xl focus:border-tertiary/50 focus:outline-none transition-all duration-300 text-content placeholder-content/50 resize-none text-sm sm:text-base"
-                      placeholder="Tell me about your project, questions, or just say hello... (min 10 characters)"
+                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-tertiary/50 focus:bg-white/8 focus:outline-none transition-all duration-300 text-content placeholder-content/30 resize-none text-sm"
+                      placeholder="Tell me about your project, questions, or just say hello..."
                     />
-                    <div className="absolute bottom-2 right-3 text-xs text-content/50">
+                    <div className="absolute bottom-3 right-4 text-xs text-content/30 font-mono">
                       {formData.message.length}/1000
                     </div>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Submit Button */}
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(14, 165, 233, 0.3)" }}
                   whileTap={{ scale: 0.98 }}
-                  className="relative w-full overflow-hidden px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl bg-gradient-to-r from-primary via-secondary to-tertiary text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed group text-sm sm:text-base"
+                  className="relative w-full overflow-hidden px-8 py-4 rounded-xl bg-gradient-to-r from-primary via-secondary to-tertiary text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed group text-sm"
                 >
-                  <div className="flex items-center justify-center space-x-2">
+                  <div className="flex items-center justify-center space-x-2 relative z-10">
                     {isSubmitting ? (
                       <>
-                        <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                        <motion.div
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
+                        />
                         <span>Sending...</span>
                       </>
                     ) : (
                       <>
-                        <PaperAirplaneIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+                        <PaperAirplaneIcon className="w-5 h-5" />
                         <span>Send Message</span>
                       </>
                     )}
                   </div>
-                  <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <motion.div
+                    className="absolute inset-0 bg-white/10"
+                    initial={{ x: "-100%" }}
+                    whileHover={{ x: "100%" }}
+                    transition={{ duration: 0.5 }}
+                  />
                 </motion.button>
 
                 {/* Status Messages */}
                 {submitStatus === 'success' && (
                   <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="p-3 sm:p-4 bg-green-500/20 border border-green-500/30 rounded-lg sm:rounded-xl text-green-400 text-center text-sm sm:text-base"
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    className="flex items-center gap-3 p-4 bg-green-500/10 border border-green-500/20 rounded-xl text-green-400 text-sm"
                   >
-                    ✅ {successMessage || "Message sent successfully! I'll get back to you soon."}
+                    <CheckCircleIcon className="w-5 h-5 flex-shrink-0" />
+                    {successMessage || "Message sent successfully!"}
                   </motion.div>
                 )}
-                
                 {submitStatus === 'error' && (
                   <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="p-3 sm:p-4 bg-red-500/20 border border-red-500/30 rounded-lg sm:rounded-xl text-red-400 text-center text-sm sm:text-base"
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    className="flex items-center gap-3 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm"
                   >
-                    ❌ {errorMessage || "Failed to send message. Please try again or email me directly."}
+                    <XCircleIcon className="w-5 h-5 flex-shrink-0" />
+                    {errorMessage || "Failed to send message."}
                   </motion.div>
                 )}
               </form>
@@ -295,84 +278,75 @@ const EmailSection = () => {
 
           {/* Contact Info & Social Links */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="space-y-6 sm:space-y-8 order-1 lg:order-2"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+            className="lg:col-span-2 space-y-6 order-1 lg:order-2"
           >
             {/* Contact Methods */}
-            <div className="space-y-4 sm:space-y-6">
-              <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                 Get In Touch
               </h3>
-              
-              <div className="space-y-3 sm:space-y-4">
-                <motion.a
-                  href="mailto:kirankumar201018@gmail.com"
-                  whileHover={{ scale: 1.02, x: 5 }}
-                  className="flex items-center space-x-3 p-3 sm:p-4 bg-gradient-to-br from-surface/60 to-surface/40 rounded-lg sm:rounded-xl border border-surface/30 group hover:border-primary/30 transition-all duration-300"
-                >
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-primary/20 to-primary/40 rounded-lg flex items-center justify-center">
-                    <EnvelopeIcon className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-content/80 font-medium text-sm sm:text-base">Email Me</p>
-                    <p className="text-content/60 text-xs sm:text-sm break-all">kirankumar201018@gmail.com</p>
-                  </div>
-                </motion.a>
 
+              {[
+                { href: "mailto:kirankumar201018@gmail.com", icon: EnvelopeIcon, title: "Email Me", subtitle: "kirankumar201018@gmail.com", color: "primary" },
+                { icon: ChatBubbleLeftRightIcon, title: "Response Time", subtitle: "Usually within 24 hours", color: "secondary" },
+              ].map((item, i) => (
                 <motion.div
-                  whileHover={{ scale: 1.02, x: 5 }}
-                  className="flex items-center space-x-3 p-3 sm:p-4 bg-gradient-to-br from-surface/60 to-surface/40 rounded-lg sm:rounded-xl border border-surface/30"
+                  key={i}
+                  whileHover={{ x: 5, scale: 1.02 }}
+                  className="glass rounded-xl p-4 group cursor-pointer hover:border-primary/20 transition-all duration-300"
+                  {...(item.href ? { as: 'a', href: item.href } : {})}
                 >
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-secondary/20 to-secondary/40 rounded-lg flex items-center justify-center">
-                    <ChatBubbleLeftRightIcon className="w-5 h-5 sm:w-6 sm:h-6 text-secondary" />
-                  </div>
-                  <div>
-                    <p className="text-content/80 font-medium text-sm sm:text-base">Response Time</p>
-                    <p className="text-content/60 text-xs sm:text-sm">Usually within 24 hours</p>
+                  <div className="flex items-center space-x-3">
+                    <div className={`w-10 h-10 rounded-lg bg-${item.color}/10 flex items-center justify-center`}>
+                      <item.icon className={`w-5 h-5 text-${item.color}`} />
+                    </div>
+                    <div>
+                      <p className="text-content/80 font-medium text-sm">{item.title}</p>
+                      <p className="text-content/40 text-xs break-all">{item.subtitle}</p>
+                    </div>
                   </div>
                 </motion.div>
-              </div>
+              ))}
             </div>
 
             {/* Social Links */}
-            <div className="space-y-3 sm:space-y-4">
-              <h3 className="text-lg sm:text-xl font-bold text-content/90">Connect With Me</h3>
-              <div className="flex space-x-3 sm:space-x-4">
-                <motion.a
-                  whileHover={{ scale: 1.1, y: -5 }}
-                  whileTap={{ scale: 0.95 }}
-                  href={socialLinks.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-surface/80 to-surface/60 rounded-lg sm:rounded-xl border border-surface/30 hover:border-primary/30 transition-all duration-300 group"
-                >
-                  <GithubIcon className="h-6 w-6 sm:h-7 sm:w-7 text-content/80 group-hover:text-primary transition-colors" />
-                </motion.a>
-                
-                <motion.a
-                  whileHover={{ scale: 1.1, y: -5 }}
-                  whileTap={{ scale: 0.95 }}
-                  href={socialLinks.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-surface/80 to-surface/60 rounded-lg sm:rounded-xl border border-surface/30 hover:border-secondary/30 transition-all duration-300 group"
-                >
-                  <LinkedInIcon className="h-6 w-6 sm:h-7 sm:w-7 text-content/80 group-hover:text-secondary transition-colors" />
-                </motion.a>
+            <div className="space-y-3">
+              <h3 className="text-lg font-bold text-content/80">Connect With Me</h3>
+              <div className="flex gap-3">
+                {[
+                  { href: socialLinks.github, icon: GithubIcon, label: "GitHub" },
+                  { href: socialLinks.linkedin, icon: LinkedInIcon, label: "LinkedIn" },
+                ].map((social) => (
+                  <motion.a
+                    key={social.label}
+                    whileHover={{ scale: 1.1, y: -5 }}
+                    whileTap={{ scale: 0.95 }}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center w-12 h-12 glass rounded-xl hover:shadow-glow-sm transition-all duration-300 group"
+                  >
+                    <social.icon className="h-6 w-6 text-content/50 group-hover:text-primary transition-colors duration-300" />
+                  </motion.a>
+                ))}
               </div>
             </div>
 
-            {/* Fun Fact */}
+            {/* Quote Card */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.8 }}
-              className="p-4 sm:p-6 bg-gradient-to-br from-tertiary/10 via-primary/5 to-secondary/10 rounded-xl sm:rounded-2xl border border-tertiary/20"
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6 }}
+              className="glass rounded-2xl p-6 relative overflow-hidden"
             >
-              <p className="text-content/80 text-center italic text-sm sm:text-base">
-                "I love turning ideas into reality through code. Let's build something amazing together! 🚀"
+              <div className="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-tertiary/10 to-transparent rounded-br-full" />
+              <p className="text-content/60 text-center italic text-sm leading-relaxed relative z-10">
+                &ldquo;I love turning ideas into reality through code. Let&apos;s build something amazing together! 🚀&rdquo;
               </p>
             </motion.div>
           </motion.div>
