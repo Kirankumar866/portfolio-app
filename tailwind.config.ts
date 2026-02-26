@@ -6,9 +6,6 @@ export default {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  future: {
-    hoverOnlyWhenSupported: true,
-  },
   theme: {
     screens: {
       'xs': '375px',
@@ -20,64 +17,33 @@ export default {
     },
     extend: {
       colors: {
-        background: '#0a0a0a',
-        surface: '#1a1a1a',
-        primary: '#0ea5e9',  
-        secondary: '#8b5cf6',
-        tertiary: '#ec4899',
-        content: '#fafafa',
+        background: '#050505',
+        surface: '#111111',
+        primary: '#FFFFFF',
+        secondary: '#A3A3A3',
+        accent1: '#00F0FF',
+        accent2: '#FF0055',
+        content: '#FFFFFF',
+        'content-muted': '#737373',
       },
       backgroundImage: {
-        'gradient-primary': 'linear-gradient(135deg, #0ea5e9 0%, #6366f1 50%, #8b5cf6 100%)',
-        'gradient-secondary': 'linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #f43f5e 100%)',
-        'gradient-subtle': 'linear-gradient(135deg, rgba(14, 165, 233, 0.15) 0%, rgba(99, 102, 241, 0.15) 50%, rgba(139, 92, 246, 0.15) 100%)',
-      },
-      animation: {
-        'fade-in': 'fadeIn 0.5s ease-out',
-        'float': 'float 6s ease-in-out infinite',
-        'gradient': 'gradient 8s ease infinite',
-        'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'spin-slow': 'spin 3s linear infinite', 
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'hero-glow': 'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%)',
       },
       fontFamily: {
-        poppins: ['var(--font-poppins)'],
+        sans: ['Space Grotesk', 'Inter', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
+        heading: ['Outfit', 'sans-serif'],
       },
-      spacing: {
-        'safe-top': 'env(safe-area-inset-top)',
-        'safe-bottom': 'env(safe-area-inset-bottom)',
-        'safe-left': 'env(safe-area-inset-left)',
-        'safe-right': 'env(safe-area-inset-right)',
+      animation: {
+        'spin-slow': 'spin 20s linear infinite',
+        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'float': 'float 6s ease-in-out infinite',
       },
-      minHeight: {
-        'touch': '44px',
-      },
-      minWidth: {
-        'touch': '44px',
-      },
-         keyframes: {
-          fadeIn: {
-            '0%': { opacity: '0' },
-            '100%': { opacity: '1' },
-          },
+      keyframes: {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-20px)' },
-        },
-        gradient: {
-          '0%, 100%': { 'background-position': '0% 50%' },
-          '50%': { 'background-position': '100% 50%' },
-        },
-        underline: {
-          '0%': { transform: 'scaleX(0)' },
-          '100%': { transform: 'scaleX(1)' },
-        },
-        'bounce-slow': {
-          '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-10px)' },
-        },
-        'slide-up': {
-          '0%': { transform: 'translateY(100%)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
         }
       },
     },
