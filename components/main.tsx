@@ -4,52 +4,34 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const projects = [
     {
-        title: "RentRite",
-        tag: "Web",
-        tech: "React, Next.js, Tailwind",
-        href: "https://github.com/Kirankumar866/RentWise",
+        title: "Ask My Docs",
+        tag: "Web / AI",
+        tech: "Next.js, FastAPI, Python, ChromaDB",
+        href: "https://github.com/Kirankumar866/AskMyDocs",
     },
     {
-        title: "Snake Game",
+        title: "stayIn Hotel",
         tag: "Web",
-        tech: "React, Next.js, Tailwind",
-        href: "https://snake-game-ebon-iota.vercel.app/",
+        tech: "React, Vite, Spring Boot",
+        href: "https://github.com/Kirankumar866/stayIn-Hotel",
     },
     {
-        title: "CookCraft",
-        tag: "Web",
-        tech: "React, Next.js, Tailwind",
-        href: "https://cookcraft-culinary-app.netlify.app",
+        title: "Microservice E-commerce",
+        tag: "Backend",
+        tech: "Spring Boot, Microservices",
+        href: "https://github.com/Kirankumar866/microservice-Ecommerce",
     },
     {
-        title: "Portfolio",
-        tag: "Web",
-        tech: "React, Next.js, Framer Motion",
-        href: "https://github.com/Kirankumar866/",
+        title: "Kafka SpringBoot Demo",
+        tag: "Backend",
+        tech: "Spring Boot, Apache Kafka",
+        href: "https://github.com/Kirankumar866/kafka-SpringBoot-Demo",
     },
     {
-        title: "Video Stream",
-        tag: "Mobile",
-        tech: "React Native, Tailwind",
-        href: "https://nxtwatchkiranp.ccbp.tech/",
-    },
-    {
-        title: "E-commerce",
-        tag: "Web",
-        tech: "React, Next.js, Tailwind",
-        href: "https://nxttrenzstore.ccbp.tech/",
-    },
-    {
-        title: "Expense Tracker",
-        tag: "Web",
-        tech: "React, Tailwind",
-        href: "https://accountcal.ccbp.tech/",
-    },
-    {
-        title: "Food Munch",
-        tag: "Web",
-        tech: "React, Tailwind",
-        href: "https://kirafoodmunch.ccbp.tech/",
+        title: "LinkedIn Outreach Extension",
+        tag: "Browser Extension",
+        tech: "JavaScript, AI, Web Scraping",
+        href: "https://github.com/Kirankumar866/linkedin-outreach-extension",
     }
 ];
 
