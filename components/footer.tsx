@@ -1,5 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
+import { GithubIcon, LinkedInIcon } from './social-icons';
 
 const socialLinks = {
     github: "https://github.com/kirankumar866",
@@ -8,50 +9,52 @@ const socialLinks = {
 
 export default function Footer() {
     return (
-        <footer className="w-full bg-background border-t border-white/10 flex flex-col items-center">
-            <div className="w-full max-w-7xl px-6 md:px-12 py-16 sm:py-24">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-end w-full mb-16 gap-8">
-                    <div>
-                        <h2 className="text-8xl sm:text-[10rem] md:text-[12rem] lg:text-[16rem] font-heading font-black uppercase tracking-tighter leading-none text-white select-none relative -left-2" style={{ WebkitTextStroke: '2px white', color: 'transparent' }}>
-                            KP.
-                        </h2>
+        <footer className="w-full bg-surface/50 border-t border-white/5">
+            <div className="max-w-6xl mx-auto px-6 md:px-12 py-12">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+                    {/* Logo / Brand */}
+                    <div className="flex flex-col items-center md:items-start gap-2">
+                        <span className="text-2xl font-heading font-bold text-primary">Portfolio</span>
+                        <span className="text-sm text-content-muted">Kiran Parasa</span>
                     </div>
 
-                    <div className="flex flex-col items-end gap-4 pb-4">
+                    {/* Social Links */}
+                    <div className="flex items-center gap-4">
                         <motion.a
                             href={socialLinks.github}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-2xl font-heading uppercase text-white hover:text-content-muted transition-colors tracking-widest"
-                            whileHover={{ x: -10 }}
+                            className="p-3 rounded-xl glass-panel hover-glow group"
+                            whileHover={{ y: -3 }}
                         >
-                            Github ↗
+                            <GithubIcon className="h-5 w-5 text-content-muted group-hover:text-primary transition-colors" />
                         </motion.a>
                         <motion.a
                             href={socialLinks.linkedin}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-2xl font-heading uppercase text-white hover:text-content-muted transition-colors tracking-widest"
-                            whileHover={{ x: -10 }}
+                            className="p-3 rounded-xl glass-panel hover-glow group"
+                            whileHover={{ y: -3 }}
                         >
-                            LinkedIn ↗
+                            <LinkedInIcon className="h-5 w-5 text-content-muted group-hover:text-primary transition-colors" />
                         </motion.a>
                         <motion.a
                             href="mailto:kirankumar201018@gmail.com"
-                            className="text-2xl font-heading uppercase text-white hover:text-content-muted transition-colors tracking-widest"
-                            whileHover={{ x: -10 }}
+                            className="p-3 rounded-xl glass-panel hover-glow group"
+                            whileHover={{ y: -3 }}
                         >
-                            Email ↗
+                            <span className="text-content-muted group-hover:text-primary transition-colors">✉️</span>
                         </motion.a>
                     </div>
                 </div>
 
-                <div className="w-full flex flex-col md:flex-row justify-between items-center border-t border-white/20 pt-8 gap-4">
-                    <span className="font-mono text-xs uppercase tracking-widest text-content-muted">
-                        © {new Date().getFullYear()} Kiran Parasa.
+                {/* Bottom bar */}
+                <div className="mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <span className="text-xs text-content-muted">
+                        © {new Date().getFullYear()} Kiran Parasa. All Rights Reserved.
                     </span>
-                    <span className="font-mono text-xs uppercase tracking-widest text-content-muted">
-                        All Rights Reserved.
+                    <span className="text-xs text-content-muted">
+                        Built with Next.js & Tailwind CSS
                     </span>
                 </div>
             </div>

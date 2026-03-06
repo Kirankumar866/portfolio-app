@@ -1,16 +1,20 @@
 'use client';
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
+import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 const navItems = [
     { name: "About", href: "#about" },
-    { name: "Qualifications", href: "#Qualifications" },
+    { name: "Skills", href: "#skills" },
+    { name: "Experience", href: "#experience" },
     { name: "Projects", href: "#projects" },
+    { name: "Certifications", href: "#certifications" },
     { name: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
+    const [mobileOpen, setMobileOpen] = useState(false);
     const { scrollY } = useScroll();
 
     useMotionValueEvent(scrollY, "change", (latest) => {
@@ -22,16 +26,18 @@ export default function Navbar() {
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className={`fixed w-full z-50 transition-colors duration-500 ${scrolled ? 'bg-background/80 backdrop-blur-md border-b border-white/5' : 'bg-transparent'
+            className={`fixed w-full z-50 transition-all duration-500 ${scrolled
+                ? 'bg-background/90 backdrop-blur-xl border-b border-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.3)]'
+                : 'bg-transparent'
                 }`}
         >
-            <div className="w-full px-6 md:px-12 py-4 flex items-center justify-between">
+            <div className="w-full px-6 md:px-12 py-4 flex items-center justify-between max-w-7xl mx-auto">
                 <motion.a
                     href="#about"
-                    className="text-white font-heading font-bold text-xl uppercase tracking-wider"
+                    className="flex items-center gap-2 text-white font-heading font-bold text-xl"
                     whileHover={{ opacity: 0.7 }}
                 >
-                    KP.
+                    <span className="text-primary">Portfolio</span>
                 </motion.a>
 
                 <div className="hidden md:flex items-center gap-8">
@@ -42,19 +48,44 @@ export default function Navbar() {
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 * i, duration: 0.5 }}
-                            className="text-sm font-sans uppercase tracking-widest text-content-muted hover:text-white transition-colors relative group"
+                            className="text-sm font-sans tracking-wide text-content-muted hover:text-primary transition-colors relative group"
                         >
                             {item.name}
-                            <span className="absolute -bottom-2 left-0 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full" />
+                            <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
                         </motion.a>
                     ))}
                 </div>
 
-                {/* Mobile menu could go here, but keeping it ultra minimal for now */}
+                {/* Mobile menu button */}
                 <div className="md:hidden">
-                    <button className="text-white font-sans uppercase text-xs tracking-widest border border-white/20 px-3 py-1.5 rounded-full">Menu</button>
+                    <button
+                        onClick={() => setMobileOpen(!mobileOpen)}
+                        className="text-white font-sans text-xs tracking-widest border border-primary/30 px-4 py-2 rounded-lg hover:border-primary hover:text-primary transition-colors"
+                    >
+                        {mobileOpen ? 'Close' : 'Menu'}
+                    </button>
                 </div>
             </div>
+
+            {/* Mobile menu dropdown */}
+            {mobileOpen && (
+                <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="md:hidden bg-surface/95 backdrop-blur-xl border-b border-white/5 px-6 py-4"
+                >
+                    {navItems.map((item) => (
+                        <a
+                            key={item.name}
+                            href={item.href}
+                            onClick={() => setMobileOpen(false)}
+                            className="block py-3 text-sm font-sans text-content-muted hover:text-primary transition-colors border-b border-white/5 last:border-0"
+                        >
+                            {item.name}
+                        </a>
+                    ))}
+                </motion.div>
+            )}
         </motion.nav>
     );
 }

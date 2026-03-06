@@ -1,127 +1,86 @@
 'use client';
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import SocialLinks from "./Sociallinks";
+import { Mail } from "lucide-react";
 
 export default function Hero() {
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const [isHovered, setIsHovered] = useState(false);
-    const { scrollY } = useScroll();
-    const y1 = useTransform(scrollY, [0, 1000], [0, 400]);
-    const y2 = useTransform(scrollY, [0, 1000], [0, -400]);
-    const opacity = useTransform(scrollY, [0, 400], [1, 0]);
-
-    useEffect(() => {
-        const handleMouseMove = (e: MouseEvent) => {
-            setMousePosition({ x: e.clientX, y: e.clientY });
-        };
-        window.addEventListener("mousemove", handleMouseMove);
-        return () => window.removeEventListener("mousemove", handleMouseMove);
-    }, []);
-
-    const variants = {
-        default: {
-            x: mousePosition.x - 16,
-            y: mousePosition.y - 16,
-            scale: 1,
-            opacity: 0.5,
-            transition: { type: "tween", ease: "backOut", duration: 0.1 }
-        },
-        hover: {
-            x: mousePosition.x - 75,
-            y: mousePosition.y - 75,
-            scale: 1.5,
-            opacity: 1,
-            backgroundColor: "white",
-            mixBlendMode: "difference" as const,
-            transition: { type: "tween", ease: "backOut", duration: 0.1 }
-        }
-    };
-
-    const textVariants = {
-        hidden: { opacity: 0, y: 50 },
-        visible: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.2, 0.65, 0.3, 0.9] } }
-    };
-
     return (
-        <section id="about" className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-background">
-            {/* Dynamic Cursor Spotlight that only works well on desktop */}
-            <motion.div
-                className="fixed top-0 left-0 w-8 h-8 rounded-full bg-white pointer-events-none z-50 hidden md:block"
-                variants={variants}
-                animate={isHovered ? "hover" : "default"}
-            />
+        <section id="about" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-background pt-20 pb-10">
+            {/* Background elements */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-background to-background pointer-events-none opacity-50 blur-3xl" />
 
-            <div className="bg-grid absolute inset-0 opacity-40" />
+            <div className="container mx-auto px-6 lg:px-12 relative z-10">
+                <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 max-w-6xl mx-auto">
 
-            {/* Background ambient light */}
-            <div
-                className="absolute w-[800px] h-[800px] rounded-full pointer-events-none"
-                style={{
-                    background: 'radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 60%)',
-                    left: mousePosition.x - 400,
-                    top: mousePosition.y - 400,
-                    transition: 'left 0.2s ease-out, top 0.2s ease-out'
-                }}
-            />
-
-            <motion.div
-                className="relative z-10 flex flex-col items-center justify-center w-full px-4"
-                style={{ opacity }}
-            >
-                <motion.div
-                    initial="hidden"
-                    animate="visible"
-                    variants={{
-                        hidden: { opacity: 0 },
-                        visible: { opacity: 1, transition: { staggerChildren: 0.2, delayChildren: 0.3 } }
-                    }}
-                    className="text-center"
-                >
+                    {/* Image Column */}
                     <motion.div
-                        variants={textVariants}
-                        className="overflow-hidden mb-2"
-                        onMouseEnter={() => setIsHovered(true)}
-                        onMouseLeave={() => setIsHovered(false)}
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className="relative w-full max-w-sm lg:max-w-md"
                     >
-                        <motion.h1
-                            className="text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] font-heading font-bold uppercase tracking-tighter leading-none text-white selection:bg-white selection:text-black cursor-default"
-                            style={{ y: y1 }}
-                        >
-                            Kiran <span className="text-white/20">Parasa</span>
-                        </motion.h1>
+                        <div className="relative aspect-square rounded-[2rem] overflow-hidden border-4 border-surface shadow-[0_0_50px_rgba(250,204,21,0.15)] group">
+                            {/* Inner glow effect on hover */}
+                            <div className="absolute inset-0 z-10 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-primary/20 pointer-events-none" />
+                            <Image
+                                src="/portfolio.png"
+                                alt="Profile Image"
+                                fill
+                                className="object-cover scale-105 group-hover:scale-100 transition-transform duration-700"
+                                priority
+                            />
+                        </div>
                     </motion.div>
 
+                    {/* Text Column */}
                     <motion.div
-                        variants={textVariants}
-                        className="w-full h-[1px] bg-white/20 my-4 lg:my-8"
-                    />
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                        className="flex-1 flex flex-col items-start text-left"
+                    >
+                        <h3 className="text-primary font-medium text-lg mb-2">Hello, I'm</h3>
+                        <h1 className="text-5xl sm:text-6xl md:text-7xl font-heading font-extrabold tracking-tight mb-4 text-white">
+                            Kiran <span className="text-primary">Parasa</span>
+                        </h1>
+                        <h2 className="text-xl sm:text-2xl text-secondary font-medium mb-6">
+                            Java Full Stack Developer
+                        </h2>
 
-                    <motion.div variants={textVariants} className="overflow-hidden">
-                        <motion.h2
-                            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-sans tracking-widest uppercase text-content-muted font-light"
-                            style={{ y: y2 }}
-                        >
-                            Full Stack Developer
-                        </motion.h2>
+                        <p className="text-content-muted text-base sm:text-lg mb-8 max-w-xl leading-relaxed">
+                            Designs end-to-end web applications using Java for backend services and modern frontend technologies for responsive user interfaces.
+                        </p>
+
+                        <div className="flex flex-wrap items-center gap-4 mb-8">
+                            <a
+                                href="#contact"
+                                className="px-6 py-3 bg-primary text-background font-semibold rounded-lg hover:bg-accent1 transition-colors shadow-[0_0_20px_rgba(250,204,21,0.3)] hover:shadow-[0_0_25px_rgba(250,204,21,0.5)]"
+                            >
+                                Get in touch
+                            </a>
+                            <a
+                                href="/kirankumar_sde.pdf"
+                                download
+                                className="px-6 py-3 border border-secondary text-secondary font-medium rounded-lg hover:border-white hover:text-white transition-colors flex items-center gap-2"
+                            >
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                Download CV
+                            </a>
+                        </div>
+
+                        <div className="flex items-center gap-4">
+                            <SocialLinks />
+                            <a
+                                href="#contact"
+                                className="p-2 rounded-lg bg-white/5 hover:bg-primary/50 transition-colors group flex items-center justify-center border border-white/10"
+                            >
+                                <Mail className="w-5 h-5 text-content/80 group-hover:text-primary transition-colors" />
+                            </a>
+                        </div>
                     </motion.div>
-                </motion.div>
-            </motion.div>
-
-            {/* Modern minimal scroll indicator */}
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 2, duration: 1 }}
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
-            >
-                <div className="w-[1px] h-16 bg-white/20 relative overflow-hidden">
-                    <motion.div
-                        className="absolute top-0 left-0 w-full h-1/2 bg-white"
-                        animate={{ top: ['-50%', '100%'] }}
-                        transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
-                    />
                 </div>
-            </motion.div>
+            </div>
         </section>
     );
 }

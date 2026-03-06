@@ -2,20 +2,13 @@
 import EmailSection from "@/components/EmailSection";
 import Footer from "@/components/footer";
 import Hero from "@/components/Hero";
-import Main from "@/components/main";
+import ProjectsSection from "@/components/main";
 import Navbar from "@/components/navbar";
-import Qualifications from "@/components/Qualifications";
-import ResumeSection from "@/components/ResumeSection";
-import Shuffle from "@/components/shuffle";
+import SkillsSection from "@/components/SkillsSection";
+import ExperienceSection from "@/components/ExperienceSection";
+import AboutSection from "@/components/AboutSection";
+import CertificationsSection from "@/components/CertificationsSection";
 import { motion } from "framer-motion";
-
-const sectionVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { duration: 0.8, ease: "easeOut" }
-  }
-};
 
 export default function Home() {
   return (
@@ -23,14 +16,21 @@ export default function Home() {
       <Navbar />
 
       <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={sectionVariants}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
       >
         <Hero />
       </motion.div>
 
-      <div className="section-divider" />
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.8 }}
+      >
+        <AboutSection />
+      </motion.div>
 
       <motion.div
         initial={{ opacity: 0 }}
@@ -38,10 +38,8 @@ export default function Home() {
         viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 0.8 }}
       >
-        <Qualifications />
+        <SkillsSection />
       </motion.div>
-
-      <div className="section-divider" />
 
       <motion.div
         initial={{ opacity: 0 }}
@@ -49,10 +47,8 @@ export default function Home() {
         viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 0.8 }}
       >
-        <Main />
+        <ExperienceSection />
       </motion.div>
-
-      <div className="section-divider" />
 
       <motion.div
         initial={{ opacity: 0 }}
@@ -60,10 +56,8 @@ export default function Home() {
         viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 0.8 }}
       >
-        <ResumeSection />
+        <ProjectsSection />
       </motion.div>
-
-      <div className="section-divider" />
 
       <motion.div
         initial={{ opacity: 0 }}
@@ -71,10 +65,8 @@ export default function Home() {
         viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 0.8 }}
       >
-        <Shuffle />
+        <CertificationsSection />
       </motion.div>
-
-      <div className="section-divider" />
 
       <motion.div
         initial={{ opacity: 0 }}
