@@ -17,23 +17,23 @@ export default {
     },
     extend: {
       colors: {
-        background: '#050505',
-        surface: '#111111',
-        primary: '#FFFFFF',
-        secondary: '#A3A3A3',
-        accent1: '#00F0FF',
-        accent2: '#FF0055',
-        content: '#FFFFFF',
-        'content-muted': '#737373',
+        background: '#0a0a0a', // Deep dark background
+        surface: '#171717', // Slightly lighter for cards
+        primary: '#facc15', // Amber/Yellow
+        secondary: '#a3a3a3', // Soft Gray
+        accent1: '#fbbf24', // Lighter Amber
+        accent2: '#d97706', // Darker Amber
+        content: '#ffffff',
+        'content-muted': '#a3a3a3',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'hero-glow': 'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%)',
+        'hero-glow': 'radial-gradient(circle at 50% 50%, rgba(250, 204, 21, 0.1) 0%, transparent 50%)',
       },
       fontFamily: {
-        sans: ['Space Grotesk', 'Inter', 'sans-serif'],
+        sans: ['Inter', 'sans-serif'], // Body font
         mono: ['JetBrains Mono', 'monospace'],
-        heading: ['Outfit', 'sans-serif'],
+        heading: ['Poppins', 'sans-serif'], // Heading font
       },
       animation: {
         'spin-slow': 'spin 20s linear infinite',
