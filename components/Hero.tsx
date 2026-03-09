@@ -24,7 +24,7 @@ export default function Hero() {
                             {/* Inner glow effect on hover */}
                             <div className="absolute inset-0 z-10 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-primary/20 pointer-events-none" />
                             <Image
-                                src="/portfolio.png"
+                                src="/skills/portfolio.png"
                                 alt="Profile Image"
                                 fill
                                 className="object-cover scale-105 group-hover:scale-100 transition-transform duration-700"

@@ -3,7 +3,7 @@ import { GithubIcon, LinkedInIcon } from './social-icons';
 
 const socialLinks = {
     github: "https://github.com/kirankumar866",
-    linkedin: "https://www.linkedin.com/in/kiran-kumar-parasa-09210b325/"
+    linkedin: "https://www.linkedin.com/in/kiran-kumar-p-09210b325/"
 };
 
 export default function SocialLinks() {

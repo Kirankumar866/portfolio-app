@@ -86,7 +86,7 @@ const EmailSection = () => {
                 </div>
                 <div>
                   <span className="text-xs text-content-muted uppercase tracking-wider block">Location</span>
-                  <span className="text-white text-sm font-medium">Missouri, USA</span>
+                  <span className="text-white text-sm font-medium">Jacksonville, FL, USA</span>
                 </div>
               </div>
             </div>
